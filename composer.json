@@ -1,0 +1,22 @@
+{
+  "name": "dashifen/sr6-combat-log",
+  "description": "A combat logging tool for Shadowrun Sixth Edition.",
+  "minimum-stability": "stable",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "David Dashifen Kees",
+      "email": "dashifen@dashifen.com",
+      "role": "developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Dashifen\\SR6\\CombatLog\\": "src"
+    }
+  },
+  "require": {
+    "php": "^8.4"
+  }
+}

@@ -1,10 +1,8 @@
-<html>
+<html lang="en-us">
 <head>
   <title>Testing</title>
 </head>
 <body>
-  Hello, world!<br>
-  <?= phpversion() ?>
-
+  Hello, world!
 </body>
 </html>
