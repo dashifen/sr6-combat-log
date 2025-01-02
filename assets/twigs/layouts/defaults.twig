@@ -1,0 +1,20 @@
+{% set pageTitle = pageTitle | default('Set the Page Title, Frosh!') %}
+
+<html lang="en-us">
+<head>
+  <title>SR6 Combat Log</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header>
+    <h1>{{ pageTitle }}</h1>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer>
+    <p>Copyright &copy; {{ "now" | date('Y') }} David Dashifen Kees</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends 'layouts/defaults.twig' %}
+
+{% set pageTitle = 'SR6 Combat Log' %}
+
+{% block content %}
+  <form method="post" action="/login">
+    <fieldset>
+      <legend>Connect to current log:</legend>
+      <p>Select your character and enter the session ID to continue.</p>
+      <ol>
+        <li>
+          <label for="character">Character</label>
+          <select id="character" name="character" required>
+            <option value=""></option>
+
+            {% for character in characters %}
+            <option value="{{ character | lower }}">{{ character }}
+              {% endfor %}
+
+            <option value="gm">Game Master</option>
+          </select>
+        </li>
+        <li>
+          <label for="session-id">Session ID</label>
+          <input id="session-id" name="session-id" required>
+        </li>
+      </ol>
+
+      <button type="submit">Connect</button>
+    </fieldset>
+  </form>
+
+  <script>
+    const characters = document.getElementById('character');
+    const sessionId = document.getElementById('session-id');
+    characters.addEventListener('change', async () => {
+      if (characters.options[characters.selectedIndex].value === 'gm') {
+        const response = await fetch('/get-session-id')
+        sessionId.value = await response.text();
+      }
+    });
+
+
+  </script>
+{% endblock %}

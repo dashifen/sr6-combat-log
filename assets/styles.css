@@ -1,0 +1,39 @@
+fieldset {
+  border: 1px solid black;
+  
+  legend {
+    font-weight: bold;
+    padding-inline: .5rem;
+  }
+  
+  ol {
+    list-style: none;
+    margin-inline-start: 0;
+    padding-inline-start: 0;
+  }
+  
+  li {
+    margin-block-end: .5rem;
+  }
+  
+  label {
+    display: inline-block;
+    font-weight: bold;
+    width: 6.25rem;
+    
+    &::after {
+      content: ':';
+    }
+  }
+  
+  select, input {
+    background-color: white;
+    border: 1px solid black;
+    padding-block: .25rem;
+    padding-inline: .5rem;
+  }
+}
+
+footer p {
+  font-size: 85%;
+}
