@@ -1,0 +1,150 @@
+{
+  "boosts": [
+    {
+      "cost": 1,
+      "action": "Re-roll one die",
+      "book": "SR6",
+      "page": 46
+    },
+    {
+      "cost": 1,
+      "action": "Add 3 to your initiative score",
+      "book": "SR6",
+      "page": 46
+    },
+    {
+      "cost": 2,
+      "action": "+1 to a single die roll",
+      "book": "SR6",
+      "page": 46
+    },
+    {
+      "cost": 2,
+      "action": "+1 to an ally's Edge",
+      "book": "SR6",
+      "page": 46
+    },
+    {
+      "cost": 2,
+      "action": "-1 to an enemy's Edge",
+      "book": "SR6",
+      "page": 46
+    },
+    {
+      "cost": 3,
+      "action": "Buy an automatic hit",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 3,
+      "action": "Heal one box of Stun damage",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 4,
+      "action": "Add Edge to your dice pool (explode 6's)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 4,
+      "action": "Heal one point of Physical damage",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 4,
+      "action": "Re-roll all failed dice, but not if a glitch occurred",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 5,
+      "action": "Count 2's as glitches for the target",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 5,
+      "action": "Create a special, fortuitous effect",
+      "book": "SR6",
+      "page": 47
+    }
+  ],
+  "actions": [
+    {
+      "cost": 1,
+      "action": "Shank (Melee Attack)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 1,
+      "action": "Sudden Insight (Any Default-able Skill)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 1,
+      "action": "Tactical Roll (Hit the Dirt)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 1,
+      "action": "Tumble (Melee Attack)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 2,
+      "action": "Wrest (Block)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 2,
+      "action": "Knockout Blow (Melee Attack)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 2,
+      "action": "Fire from Cover (Ranged Attack from Cover 4)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 2,
+      "action": "Bring the Drama (Con)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 4,
+      "action": "Anticipation (Multiple Ranged Attacks)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 4,
+      "action": "Big Speech (Influence)",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 5,
+      "action": "Called Shot - Disarm",
+      "book": "SR6",
+      "page": 47
+    },
+    {
+      "cost": 5,
+      "action": "Called Shot - Vitals",
+      "book": "SR6",
+      "page": 47
+    }
+  ]
+}
