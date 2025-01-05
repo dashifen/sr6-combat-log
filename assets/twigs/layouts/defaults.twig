@@ -21,10 +21,7 @@
     </main>
     <footer>
       {% if session.tag is defined and session.tag | length %}
-        <ul>
-          <li>Session: {{ session.tag }}</li>
-          <li><a href="/session/logout">Log out</a></li>
-        </ul>
+        <p>Session: {{ session.tag }} | <a href="/session/logout">Log out</a></p>
       {% endif %}
     </footer>
   </div>

@@ -82,20 +82,4 @@ button {
 
 footer {
   font-size: .6rem;
-  
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  li {
-    display: inline;
-    
-    & + li::before {
-      border-inline-start: 1px solid black;
-      content: '';
-      display: block;
-    }
-  }
 }
