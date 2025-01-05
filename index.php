@@ -15,17 +15,9 @@ if (!class_exists(CombatLog::class)) {
 error_reporting(E_ALL);
 
 try {
-  
-  // this complicated statement instantiates our router.  since we don't pass
-  // it a collection of routes, it's an auto-router, and it'll determine the
-  // action we're here to execute based on the current URL path.  we get that
-  // object by calling its getActionObject method passing it an instance of
-  // our CombatLog object, and then call that object's execute method.
-  
-  (new Router)
-    ->getActionObject(new CombatLog)
-    ->execute();
-  
+  $router = new Router;
+  $combatLog = new CombatLog($router->request->getSessionObj());
+  $router->getActionObject($combatLog)->execute();
 } catch (Exception $e) {
   if (
     is_a($e, ActionException::class)
@@ -33,7 +25,8 @@ try {
   ) {
     
     // if we caught the visitor attempting to access a session without having
-    // "authenticated" their session, then we'll just redirect to the homepage.
+    // "authenticated" their session, then we'll just redirect to the index
+    // page where they can log in.
     
     header('Location: /');
     exit;

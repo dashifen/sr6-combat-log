@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "sr6-combat-log",
+  "description": "A combat logging tool for Shadowrun Sixth Edition.",
+  "repository": "https://github.com/dashifen/sr6-combat-log",
+  "license": "MIT",
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.5",
+    "css-loader": "^7.1",
+    "lodash": "^4.17",
+    "mini-css-extract-plugin": "^2.9",
+    "vue": "^3.5",
+    "vue-loader": "^17.4",
+    "vuex": "^4.1",
+    "webpack": "^5.97",
+    "webpack-cli": "^6.0"
+  },
+  "scripts": {
+    "watch": "webpack --env development --watch",
+    "build": "webpack --env production"
+  }
+}

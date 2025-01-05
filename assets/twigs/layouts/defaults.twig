@@ -1,20 +1,32 @@
 {% set pageTitle = pageTitle | default('Set the Page Title, Frosh!') %}
 
-<html lang="en-us">
+<html lang="en-us" class="no-js">
 <head>
   <title>SR6 Combat Log</title>
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css?ver={{ cssVersion }}">
+  <script src="/assets/combat-log.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>{{ pageTitle }}</h1>
-  </header>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-  <footer>
-    <p>Copyright &copy; {{ "now" | date('Y') }} David Dashifen Kees</p>
-  </footer>
+  <div class="wrapper">
+    <header>
+      <h1>{{ pageTitle }}</h1>
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <footer>
+      {% if session.tag is defined and session.tag | length %}
+        <ul>
+          <li>Session: {{ session.tag }}</li>
+          <li><a href="/session/logout">Log out</a></li>
+        </ul>
+      {% endif %}
+    </footer>
+  </div>
 </body>
 </html>

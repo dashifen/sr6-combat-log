@@ -1,5 +1,9 @@
 /.idea
-/composer.lock
 /vendor
-/SR6CombatLogValetDriver.php
+/node_modules
 /assets/twigs/cache
+
+/SR6CombatLogValetDriver.php
+/composer.lock
+/package-lock.json
+/.env

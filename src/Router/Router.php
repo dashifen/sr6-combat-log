@@ -4,11 +4,13 @@ namespace Dashifen\SR6\CombatLog\Router;
 
 use Dashifen\SR6\CombatLog\CombatLog;
 use Dashifen\Router\Router as DashifenRouter;
-use Dashifen\SR6\CombatLog\Actions\IndexAction;
-use Dashifen\SR6\CombatLog\Actions\LoginAction;
-use Dashifen\SR6\CombatLog\Actions\SessionAction;
 use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
-use Dashifen\SR6\CombatLog\Actions\AjaxActions\GetSessionIdAction;
+use Dashifen\SR6\CombatLog\Actions\Framework\ActionException;
+use Dashifen\SR6\CombatLog\Actions\{
+  IndexAction,
+  LoginAction,
+  LogoutAction,
+  SessionAction};
 
 class Router extends DashifenRouter
 {
@@ -19,7 +21,7 @@ class Router extends DashifenRouter
    */
   protected function isRoutePrivate(): bool
   {
-    return str_contains($this->path, 'session');
+    return str_contains($this->request->getServerVar('REQUEST_URI'), 'session');
   }
   
   /**
@@ -28,17 +30,15 @@ class Router extends DashifenRouter
    * @param CombatLog $log
    *
    * @return AbstractAction
+   * @throws ActionException
    */
   public function getActionObject(CombatLog $log): AbstractAction
   {
     return match ($this->route->action) {
-      'IndexAction'        => new IndexAction($log, $this->request),
-      'LoginAction'        => new LoginAction($log, $this->request),
-      'SessionAction'      => new SessionAction($log, $this->request),
-      
-      // the following are all AJAX actions.
-      
-      'GetSessionIdAction' => new GetSessionIdAction($log, $this->request),
+      'IndexAction'   => new IndexAction($log, $this->request),
+      'LoginAction'   => new LoginAction($log, $this->request),
+      'LogoutAction'  => new LogoutAction($log, $this->request),
+      'SessionAction' => new SessionAction($log, $this->request),
     };
   }
 }

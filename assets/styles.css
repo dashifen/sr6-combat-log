@@ -1,5 +1,42 @@
+html, body {
+  box-sizing: border-box;
+  font-family: Cabin, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 125%;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-weight: normal;
+  line-height: 1.5;
+  height: 100%;
+}
+
+html.no-js {
+  body {
+    display: none;
+  }
+  
+  &::after {
+    content: 'Turn on JavaScript, please.';
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-size: .9rem;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}
+
 fieldset {
   border: 1px solid black;
+  border-radius: 3px;
   
   legend {
     font-weight: bold;
@@ -15,25 +52,50 @@ fieldset {
   li {
     margin-block-end: .5rem;
   }
+}
+
+label {
+  display: inline-block;
+  font-weight: bold;
+  width: 6.25rem;
   
-  label {
-    display: inline-block;
-    font-weight: bold;
-    width: 6.25rem;
-    
-    &::after {
-      content: ':';
-    }
-  }
-  
-  select, input {
-    background-color: white;
-    border: 1px solid black;
-    padding-block: .25rem;
-    padding-inline: .5rem;
+  &::after {
+    content: ':';
   }
 }
 
-footer p {
-  font-size: 85%;
+select, input, button {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding-block: .25rem;
+  padding-inline: .5rem;
+}
+
+button {
+  background-color: powderblue;
+  
+  &:hover, &:focus, &:active {
+    background-color: deepskyblue;
+  }
+}
+
+footer {
+  font-size: .6rem;
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    display: inline;
+    
+    & + li::before {
+      border-inline-start: 1px solid black;
+      content: '';
+      display: block;
+    }
+  }
 }
