@@ -1,0 +1,240 @@
+{
+  "minor": [
+    {
+      "action": "Activate/Deactivate Focus",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 40
+    },
+    {
+      "action": "Avoid Incoming",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Block",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Call a Shot",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Change Device Mode",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Command Drone",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Command Spirit",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Dodge",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Drop Object",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Drop Prone",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Hit the Dirt",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Intercept",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 41
+    },
+    {
+      "action": "Move",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Multiple Attacks",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Quick Draw",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Reload Smartgun",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Shift Perception",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Stand Up",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Take Aim",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Take Cover",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Trip",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    }
+  ],
+  "major": [
+    {
+      "action": "Assist",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Astral Projection",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Attack",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 42
+    },
+    {
+      "action": "Banish Spirit",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Cast Spell",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Cleanse",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Counterspell",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Full Defense",
+      "type": "Anytime",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Manifest",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Observe in Detail",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Pick Up/Put Down Object",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Ready Weapon",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Reload Weapon",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Rigger Jump In",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Sprint",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Summon Spirit",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Use Simple Device",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    },
+    {
+      "action": "Use Skill",
+      "type": "Initiative",
+      "book": "SR6",
+      "page": 43
+    }
+  ]
+}
