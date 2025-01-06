@@ -70,6 +70,14 @@ select, input, button {
   border-radius: 3px;
   padding-block: .25rem;
   padding-inline: .5rem;
+  
+  &[type=number] {
+    padding-inline-end: .25rem;
+  }
+}
+
+optgroup {
+  margin-block-start: .5rem;
 }
 
 button {
@@ -79,6 +87,40 @@ button {
     background-color: deepskyblue;
   }
 }
+
+th[scope=row],
+th[scope=col]:first-child {
+  text-align: left;
+  width: 10rem;
+}
+
+th[scope=col] {
+  vertical-align: bottom;
+}
+
+th#edge,
+th#damage,
+th#major-action,
+td[headers*=initiative] {
+  width: 3rem;
+}
+
+th#notes {
+  width: auto;
+}
+
+td[headers*=action] {
+  text-align: center;
+}
+
+td input {
+  &[type=text],
+  &[type=number] {
+    width: 100%;
+  }
+}
+
+th
 
 footer {
   font-size: .6rem;

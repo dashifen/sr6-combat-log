@@ -5,8 +5,8 @@
     <fieldset>
       <legend>Connect to a current log:</legend>
       <p>
-        Select your character and enter the session tag to continue.  The most
-        recent session is tagged <em>{{ tag }}</em>.  To start a new session,
+        Select your character and enter the session tag to continue. The most
+        recent session is tagged <em>{{ tag }}</em>. To start a new session,
         leave the tag field blank.
       </p>
       <ol>
@@ -14,12 +14,12 @@
           <label for="character">Character</label>
           <select id="character" name="character" required>
             <option value=""></option>
-
-            {% for character in characters %}
-            <option value="{{ character | lower }}">{{ character }}
+            <option value="gm">GM</option>
+            <optgroup label="PCs">
+              {% for character in characters %}
+                <option value="{{ character | lower }}">{{ character }}
               {% endfor %}
-
-            <option value="gm">Game Master</option>
+            </optgroup>
           </select>
         </li>
         <li>

@@ -41,7 +41,7 @@ class CombatLog
   ) {
     $this->projectFolder = dirname(__DIR__);
     $this->templateFolder = $this->projectFolder . '/assets/twigs';
-    $this->dataFolder = $this->projectFolder . '/data';
+    $this->dataFolder = $this->projectFolder . '/assets/data';
     
     // theoretically, we could pass these data into the log.  it's unlikely
     // that we ever will, but just in case we do, we'll use the null coalescing

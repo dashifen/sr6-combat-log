@@ -16,31 +16,10 @@ class IndexAction extends AbstractAction
    */
   public function execute(): void
   {
-    $context = array_merge($this->getCharacters(), [
-      'tag' => $this->getRecentSessionTag()
+    $this->combatLog->render('index.twig', [
+      'characters' => $this->getCharacters(),
+      'tag'        => $this->getRecentSessionTag(),
     ]);
-    $this->combatLog->render('index.twig', $context);
-  }
-  
-  /**
-   * Returns an array containing the list of characters in our data folder.
-   *
-   * @return array
-   */
-  private function getCharacters(): array
-  {
-    try {
-      $json = file_get_contents($this->combatLog->dataFolder . '/characters.json');
-      $json = json_decode($json, associative: true, flags: JSON_THROW_ON_ERROR);
-    } catch (JsonException $e) {
-      $this->combatLog::catcher($e);
-    }
-    
-    // we've arranged the JSON in the characters.json file such that it
-    // produces an array with one index:  characters.  that's exactly what our
-    // twig template expects, so we can return it without modification here.
-    
-    return $json;
   }
   
   /**

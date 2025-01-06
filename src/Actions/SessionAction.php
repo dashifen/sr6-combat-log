@@ -13,6 +13,8 @@ class SessionAction extends AbstractPrivateAction
    */
   public function execute(): void
   {
-    $this->combatLog->render('session.twig');
+    $this->combatLog->render('session.twig', [
+      'characters' => $this->getCharacters()
+    ]);
   }
 }
