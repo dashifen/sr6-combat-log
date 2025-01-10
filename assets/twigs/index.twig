@@ -1,4 +1,4 @@
-{% extends 'layouts/defaults.twig' %}
+{% extends 'layouts/default.twig' %}
 {% set pageTitle = 'SR6 Combat Log' %}
 {% block content %}
   <form method="post" action="/login">
@@ -15,11 +15,7 @@
           <select id="character" name="character" required>
             <option value=""></option>
             <option value="gm">GM</option>
-            <optgroup label="PCs">
-              {% for character in characters %}
-                <option value="{{ character | lower }}">{{ character }}
-              {% endfor %}
-            </optgroup>
+            <optgroup label="PCs"></optgroup>
           </select>
         </li>
         <li>

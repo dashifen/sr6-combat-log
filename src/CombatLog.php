@@ -59,19 +59,14 @@ class CombatLog
    */
   private function produceTwigEnvironment(): Environment
   {
-    $loader = new FilesystemLoader($this->templateFolder);
-    $twig = new Environment($loader, [
-      'cache'            => $this->templateFolder . '/cache',
-      'strict_variables' => true,
-      'auto_reload'      => true,
-    ]);
-    
-    $filemtime = new TwigFunction('filemtime', function (string $file): int {
-      return is_file($file) ? filemtime($file) : time();
-    });
-    
-    $twig->addFunction($filemtime);
-    return $twig;
+    return new Environment(
+      new FilesystemLoader($this->templateFolder),
+      [
+        'cache'            => $this->templateFolder . '/cache',
+        'strict_variables' => true,
+        'auto_reload'      => true,
+      ]
+    );
   }
   
   /**
@@ -103,10 +98,16 @@ class CombatLog
       // in addition to the information that is sent here in the $context
       // array, there are a few things that we want to add ourselves.  these
       // are, in essence, contextual data that we need everywhere, not just on
-      // a particular page.
+      // a particular page.  once we merge in most of the information, we add
+      // one more item:  a dump of the $context array itself.  this is so we
+      // can see it in the DOM and, one day, we'll get rid of that.
       
-      $context['cssVersion'] = filemtime($this->projectFolder . '/assets/styles.css');
-      $context['session'] = $this->session->getSession();
+      $context = array_merge($context, [
+        'state'      => basename($twig, '.twig'),
+        'cssVersion' => filemtime($this->projectFolder . '/assets/styles.css'),
+        'session'    => $this->session->getSession(),
+      ]);
+      
       $context['context'] = print_r($context, true);
       echo $this->twig->load($twig)->render($context);
     } catch (TwigException $e) {

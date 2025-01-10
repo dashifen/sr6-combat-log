@@ -17,25 +17,4 @@ abstract class AbstractAction implements ActionInterface
     protected RequestInterface $request
   ) {
   }
-  
-  /**
-   * Returns an array containing the list of characters in our data folder.
-   *
-   * @param bool $onlyNames
-   *
-   * @return array
-   */
-  protected function getCharacters(bool $onlyNames = true): array
-  {
-    try {
-      $json = file_get_contents($this->combatLog->dataFolder . '/characters.json');
-      $json = json_decode($json, associative: true, flags: JSON_THROW_ON_ERROR);
-    } catch (JsonException $e) {
-      $this->combatLog::catcher($e);
-    }
-    
-    return $onlyNames
-      ? array_column($json, 'name')
-      : $json;
-  }
 }

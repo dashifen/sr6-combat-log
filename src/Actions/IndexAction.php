@@ -17,8 +17,7 @@ class IndexAction extends AbstractAction
   public function execute(): void
   {
     $this->combatLog->render('index.twig', [
-      'characters' => $this->getCharacters(),
-      'tag'        => $this->getRecentSessionTag(),
+      'tag' => $this->getRecentSessionTag(),
     ]);
   }
   

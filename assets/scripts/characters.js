@@ -1,4 +1,4 @@
-[
+export const characters = [
   {
     "name": "Cipher",
     "dice": 3,
@@ -24,4 +24,4 @@
     "dice": 3,
     "edge": 3
   }
-]
+];

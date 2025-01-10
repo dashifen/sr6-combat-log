@@ -1,12 +1,5 @@
-<script>
-  export default {
-    name: "session",
-    computed: {
-      characters() {
-        return window.characters;
-      }
-    }
-  }
+<script setup>
+  const props = defineProps(['characters']);
 </script>
 
 <template>
@@ -68,7 +61,6 @@
           <input type="text">
         </td>
       </tr>
-
     </tbody>
-    </table>
+  </table>
 </template>

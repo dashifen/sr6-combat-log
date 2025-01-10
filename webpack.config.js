@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const filename = 'combat-log';
+const filename = 'application';
 
 module.exports = (env = {production: false}) => ({
   mode: env.production ? 'production' : 'development',
