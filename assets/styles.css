@@ -88,6 +88,42 @@ button {
   }
 }
 
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  padding: .25rem;
+}
+
+thead,
+tbody tr:nth-child(even) > * {
+  background-color: whitesmoke;
+}
+
+tbody tr:hover > * {
+  background-color: floralwhite !important;
+}
+
+tbody tr:not(:last-child) {
+  td, th {
+    border-block-end: 1px solid black;
+  }
+}
+
+tr *:nth-child(2),
+tr *:nth-child(6),
+tr *:nth-child(7),
+thead tr *:nth-child(8),
+thead tr *:nth-child(10),
+tbody tr *:nth-child(13),
+tbody tr *:nth-child(15)
+{
+  border-inline-start: 1px solid black;
+}
+
 th[scope=row],
 th[scope=col]:first-child {
   text-align: left;
@@ -96,13 +132,14 @@ th[scope=col]:first-child {
 
 th[scope=col] {
   vertical-align: bottom;
+  border-block-end: 1px solid black;
 }
 
 th#edge,
 th#damage,
 th#major-action,
 td[headers*=initiative] {
-  width: 3rem;
+  width: 3.5rem;
 }
 
 th#notes {
@@ -113,6 +150,10 @@ td[headers*=action] {
   text-align: center;
 }
 
+td[headers*=minor-actions] {
+  width: 1rem;
+}
+
 td input {
   &[type=text],
   &[type=number] {
@@ -120,7 +161,6 @@ td input {
   }
 }
 
-th
 
 footer {
   font-size: .6rem;

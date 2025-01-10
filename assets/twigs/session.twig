@@ -2,42 +2,35 @@
 {% set pageTitle = 'SR6 Combat Log' %}
 {% block content %}
 
-  <table>
-    <thead>
-      <tr>
-        <th scope="col" id="character">Character</th>
-        <th scope="col" id="initiative">Init</th>
-        <th scope="col" id="initiative-dice">Dice</th>
-        <th scope="col" id="initiative-score">Roll</th>
-        <th scope="col" id="initiative-score">Score</th>
-        <th scope="col" id="major-action">Major<br>Action</th>
-        <th scope="col" id="minor-actions" colspan="6">Minor Actions</th>
-        <th scope="col" id="edge">Edge</th>
-        <th scope="col" id="damage">Damage</th>
-        <th scope="col" id="notes">Notes</th>
-      </tr>
-    </thead>
-    <tbody>
+  <session characters='{{ characters |json_encode }}'></session>
+
+
+  {# <tbody>
       {% for character in characters %}
         <tr>
-          <th scope="row" id="{{ character }}" headers="character">{{ character }}</th>
-          <td headers="{{ character }} initiative"><input type="text"></td>
-          <td headers="{{ character }} initiative-dice"><input type="text"></td>
-          <td headers="{{ character }} initiative-roll"><input type="text"></td>
-          <td headers="{{ character }} initiative-score"></td>
-          <td headers="{{ character }} major-action"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} minor-actions"><input type="checkbox"></td>
-          <td headers="{{ character }} edge"><input type="number" min="0" max="7"></td>
-          <td headers="{{ character }} damage"><input type="number" min="0" max="20"></td>
-          <td headers="{{ character }} notes"><input type="text"></td>
-        <tr>
+          <th scope="row" id="{{ character.name }}" headers="character">{{ character.name }}</th>
+          <td headers="{{ character.name }} initiative"></td>
+          <td headers="{{ character.name }} initiative-dice"></td>
+          <td headers="{{ character.name }} initiative-roll"><input type="text"></td>
+          <td headers="{{ character.name }} initiative-score"></td>
+          <td headers="{{ character.name }} major-action"><input type="checkbox"></td>
+          <td headers="{{ character.name }} minor-actions"><input type="checkbox"></td>
+
+          {% for i in range(1, character.dice) %}
+            <td headers="{{ character.name }} minor-actions"><input type="checkbox"></td>
+          {% endfor %}
+
+          {% if character.dice != 5 %}
+            {% for i in range(character.dice + 1, 5) %}
+              <td headers="{{ character.name }} minor-actions"></td>
+            {% endfor %}
+          {% endif %}
+
+          <td headers="{{ character.name }} edge"><input type="number" min="0" max="7" value="{{ character.edge }}"></td>
+          <td headers="{{ character.name }} damage"><input type="number" min="0" max="20"></td>
+          <td headers="{{ character.name }} notes"><input type="text"></td>
+        </tr>
       {% endfor %}
     </tbody>
-  </table>
-
+  #}
 {% endblock %}

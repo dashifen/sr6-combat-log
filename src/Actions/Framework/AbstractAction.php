@@ -23,7 +23,7 @@ abstract class AbstractAction implements ActionInterface
    *
    * @return array
    */
-  protected function getCharacters(): array
+  protected function getCharacters(bool $onlyNames = true): array
   {
     try {
       $json = file_get_contents($this->combatLog->dataFolder . '/characters.json');
@@ -32,6 +32,8 @@ abstract class AbstractAction implements ActionInterface
       $this->combatLog::catcher($e);
     }
     
-    return array_column($json, 'name');
+    return $onlyNames
+      ? array_column($json, 'name')
+      : $json;
   }
 }
