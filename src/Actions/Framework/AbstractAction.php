@@ -21,6 +21,8 @@ abstract class AbstractAction implements ActionInterface
   /**
    * Returns an array containing the list of characters in our data folder.
    *
+   * @param bool $onlyNames
+   *
    * @return array
    */
   protected function getCharacters(bool $onlyNames = true): array

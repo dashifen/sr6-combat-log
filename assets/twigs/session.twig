@@ -2,35 +2,10 @@
 {% set pageTitle = 'SR6 Combat Log' %}
 {% block content %}
 
-  <session characters='{{ characters |json_encode }}'></session>
+  <script>
+    window.characters = JSON.parse('{{ characters | json_encode | raw }}');
+  </script>
 
+  <session></session>
 
-  {# <tbody>
-      {% for character in characters %}
-        <tr>
-          <th scope="row" id="{{ character.name }}" headers="character">{{ character.name }}</th>
-          <td headers="{{ character.name }} initiative"></td>
-          <td headers="{{ character.name }} initiative-dice"></td>
-          <td headers="{{ character.name }} initiative-roll"><input type="text"></td>
-          <td headers="{{ character.name }} initiative-score"></td>
-          <td headers="{{ character.name }} major-action"><input type="checkbox"></td>
-          <td headers="{{ character.name }} minor-actions"><input type="checkbox"></td>
-
-          {% for i in range(1, character.dice) %}
-            <td headers="{{ character.name }} minor-actions"><input type="checkbox"></td>
-          {% endfor %}
-
-          {% if character.dice != 5 %}
-            {% for i in range(character.dice + 1, 5) %}
-              <td headers="{{ character.name }} minor-actions"></td>
-            {% endfor %}
-          {% endif %}
-
-          <td headers="{{ character.name }} edge"><input type="number" min="0" max="7" value="{{ character.edge }}"></td>
-          <td headers="{{ character.name }} damage"><input type="number" min="0" max="20"></td>
-          <td headers="{{ character.name }} notes"><input type="text"></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  #}
 {% endblock %}

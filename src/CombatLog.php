@@ -107,8 +107,8 @@ class CombatLog
       
       $context['cssVersion'] = filemtime($this->projectFolder . '/assets/styles.css');
       $context['session'] = $this->session->getSession();
+      $context['context'] = print_r($context, true);
       echo $this->twig->load($twig)->render($context);
-      echo '<!-- ' . print_r($context, true) . ' -->';
     } catch (TwigException $e) {
       self::catcher($e);
     }
