@@ -86,11 +86,16 @@ button {
   &:hover, &:focus, &:active {
     background-color: deepskyblue;
   }
+  
+  & + button {
+    margin-inline-start: 1rem;
+  }
 }
 
 table {
   border: 1px solid black;
   border-collapse: collapse;
+  margin-block-end: 1rem;
   width: 100%;
 }
 
@@ -161,6 +166,15 @@ td input {
   }
 }
 
+.session {
+  position: relative;
+  
+  .session-controls {
+    position: absolute;
+    right: 0;
+    top: -2rem;
+  }
+}
 
 footer {
   font-size: .6rem;

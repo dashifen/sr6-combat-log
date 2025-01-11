@@ -23,5 +23,5 @@ export const characters = [
     "name": "Waver",
     "dice": 3,
     "edge": 3
-  }
+  },
 ];

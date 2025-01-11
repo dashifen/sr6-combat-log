@@ -1,6 +1,8 @@
 import {createApp} from 'vue';
+import {state} from './state.js';
 import {characters} from './characters.js';
 import Session from './components/session.vue';
+
 
 export const SR6CombatLog = {
   /**
@@ -11,12 +13,13 @@ export const SR6CombatLog = {
   init() {
     document.documentElement.classList.remove('no-js');
     
-    // the state variable is defined in the default.twig layout such that it's
-    // the name of the template that extends that layout except for the .twig
-    // extension.  then, we've carefully created methods below that match the
-    // possible values of state, and we can call those methods as follows:
+    // the template variable is defined in the default.twig layout such that
+    // it's the name of the twig file that extends that layout except for the
+    // .twig extension.  then, we've carefully created methods below that match
+    // the possible values that variable, and we can call those methods as
+    // follows:
     
-    this[state]();
+    this[template]();
   },
   
   /**
@@ -30,26 +33,19 @@ export const SR6CombatLog = {
     // that's ready and waiting for them.  so, for each character, we create
     // an option and then add it within said group.
     
-    characters.forEach((character) => {
-      const option = new Option(character.name, character.name.toLowerCase());
-      document.querySelector('optgroup').appendChild(option);
-    });
+    const group = document.querySelector('optgroup');
+    const makeOption = (name) => new Option(name, name.toLowerCase());
+    characters.forEach((char) => group.appendChild(makeOption(char.name)));
   },
   
   /**
-   * Instantiates our Vue app passing our characters to it as properties.
+   * Instantiates our Vue app providing it a Vuex store object imported above
+   * as state.
    *
    * @return {void}
    */
   session() {
-    
-    // in the session state, we create a Vue app passing it our characters
-    // as a property. then, we mount it to the session component which is
-    // basically the only thing in the DOM when we're in this state.
-    
-    createApp(Session, {
-      'characters': characters
-    }).mount(document.querySelector('session'));
+    createApp(Session).use(state).mount(document.querySelector('session'));
   }
 };
 
