@@ -174,12 +174,7 @@ class Database
     $result = $this->query->get_result();
     $results = $result->fetch_all($mode);
     $result->free();
-    
-    // here we do something a little weird:  if there's exactly one row to
-    // return, we simply return it rather the encapsulating array.  otherwise,
-    // we'll just return everything.
-    
-    return sizeof($results) === 1 ? $results[0] : $results;
+    return $results;
   }
   
   /**

@@ -66,7 +66,7 @@ class LoginAction extends AbstractAction
       ->execute($query->sql(), $query->params())
       ->results();
     
-    return $results['id'];
+    return $results['session_id'];
   }
   
   /**

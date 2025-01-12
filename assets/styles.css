@@ -8,6 +8,8 @@ html, body {
   font-weight: normal;
   line-height: 1.5;
   height: 100%;
+  margin: 0 .25rem;
+  padding: 0;
 }
 
 html.no-js {
@@ -98,7 +100,6 @@ button {
 table {
   border: 1px solid black;
   border-collapse: collapse;
-  margin-block-end: 1rem;
   width: 100%;
 }
 
