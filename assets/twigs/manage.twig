@@ -1,0 +1,24 @@
+{% extends 'layouts/default.twig' %}
+{% set pageTitle = 'Manage Combat Sessions' %}
+{% block content %}
+
+  <form method="post" action="/session/manage/delete">
+  <fieldset>
+    <legend>Delete Sessions</legend>
+    <p>Mark the sessions you want deleted and click the button.</p>
+    <ol>
+      {% for combat in sessions %}
+        <li>
+          <label class="checkbox">
+            <input type="checkbox" name="sessions[]" value="{{ combat.session_id }}">
+            {{ combat.date }} - {{ combat.tag }}
+          </label>
+        </li>
+      {% endfor %}
+    </ol>
+
+    <button type="submit">Delete Sessions</button>
+  </fieldset>
+  </form>
+
+{% endblock %}

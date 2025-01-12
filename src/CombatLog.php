@@ -105,6 +105,7 @@ class CombatLog
       $context = array_merge($context, [
         'template'   => basename($twig, '.twig'),
         'cssVersion' => filemtime($this->projectFolder . '/assets/styles.css'),
+        'username'   => $this->session->getUsername(),
         'session'    => $this->session->getSession(),
       ]);
       

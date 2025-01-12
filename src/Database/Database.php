@@ -120,23 +120,32 @@ class Database
   private function getTypes(array $parameters): string
   {
     $types = '';
-    self::debug($parameters);
-    foreach ($parameters as $i => $parameter) {
-      $types .= match (true) {
-        is_int($parameter)    => 'i',
-        is_float($parameter)  => 'd',
-        is_string($parameter) => 's',
-        
-        // it's very possible that if we're here that $parameter won't be able
-        // to become a string.  that's why we just use $i to reference which
-        // caused the problem and then hope the developers can work from there
-        // to find the issue.
-        
-        default               => throw new DatabaseException(
-          sprintf('Invalid %s parameter.', new NumberFormatter('en-us', NumberFormatter::ORDINAL)->format($i + 1)),
-          DatabaseException::INVALID_PARAMETER
-        )
-      };
+    try {
+      foreach ($parameters as $i => $parameter) {
+        $types .= match (true) {
+          is_int($parameter)    => 'i',
+          is_float($parameter)  => 'd',
+          is_string($parameter) => 's',
+          
+          // it's very possible that if we're here that $parameter won't be able
+          // to become a string.  that's why we just use $i to reference which
+          // caused the problem and then hope the developers can work from there
+          // to find the issue.
+          
+          default               => throw new DatabaseException(
+            sprintf('Invalid %s parameter.', new NumberFormatter('en-us', NumberFormatter::ORDINAL)->format($i + 1)),
+            DatabaseException::INVALID_PARAMETER
+          )
+        };
+      }
+    } catch (DatabaseException $e) {
+      
+      // if we ran into an issue in the try-block, we'll dump our parameters
+      // to the screen and then re-throw the same exception so we can fix
+      // whatever went wrong.
+      
+      self::debug($parameters);
+      throw $e;
     }
     
     return $types;

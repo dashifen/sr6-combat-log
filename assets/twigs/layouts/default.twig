@@ -22,7 +22,13 @@
     </main>
     <footer>
       {% if session.tag is defined and session.tag | length %}
-        <p>Session: {{ session.tag }} | <a href="/session/logout">Log out</a></p>
+        <p>Session: {{ session.tag }}
+          | <a href="/session/logout">Log out</a>
+
+          {% if username == 'gm' %}
+            | <a href="/session/manage">Manage</a>
+          {% endif %}
+        </p>
       {% endif %}
     </footer>
   </div>

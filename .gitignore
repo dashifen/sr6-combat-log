@@ -3,6 +3,7 @@
 /node_modules
 /assets/twigs/cache
 
+/adminer.php
 /SR6CombatLogValetDriver.php
 /composer.lock
 /package-lock.json

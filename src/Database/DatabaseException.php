@@ -12,6 +12,7 @@ class DatabaseException extends Exception
   public const int INVALID_PARAMETER = 3;
   public const int MUST_EXECUTE      = 4;
   public const int INVALID_MODE      = 5;
+  public const int INVALID_DATA      = 6;
   
   /**
    * DatabaseException constructor

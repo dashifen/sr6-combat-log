@@ -57,7 +57,7 @@ class LoginAction extends AbstractAction
   private function sessionReconnect(string $tag): int
   {
     $query = $this->combatLog->queryFactory
-      ->select('id')
+      ->select('session_id')
       ->from('sessions')
       ->where(field('tag')->eq($tag))
       ->compile();

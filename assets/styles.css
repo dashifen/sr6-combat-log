@@ -57,10 +57,13 @@ fieldset {
 label {
   display: inline-block;
   font-weight: bold;
-  width: 6.25rem;
   
-  &::after {
-    content: ':';
+  &:not(.checkbox) {
+    width: 6.25rem;
+    
+    &::after {
+      content: ':';
+    }
   }
 }
 

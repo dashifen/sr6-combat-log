@@ -7,10 +7,13 @@ use Dashifen\Router\Router as DashifenRouter;
 use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
 use Dashifen\SR6\CombatLog\Actions\Framework\ActionException;
 use Dashifen\SR6\CombatLog\Actions\{
+  DeleteAction,
   IndexAction,
   LoginAction,
   LogoutAction,
-  SessionAction};
+  ManageAction,
+  SessionAction
+};
 
 class Router extends DashifenRouter
 {
@@ -39,6 +42,8 @@ class Router extends DashifenRouter
       'LoginAction'   => new LoginAction($log, $this->request),
       'LogoutAction'  => new LogoutAction($log, $this->request),
       'SessionAction' => new SessionAction($log, $this->request),
+      'ManageAction'  => new ManageAction($log, $this->request),
+      'DeleteAction'  => new DeleteAction($log, $this->request),
     };
   }
 }
