@@ -105,6 +105,10 @@ table {
 
 td, th {
   padding: .25rem;
+  
+  &.with-border {
+    border-inline-end: 1px solid black;
+  }
 }
 
 thead,
@@ -114,23 +118,6 @@ tbody tr:nth-child(even) > * {
 
 tbody tr:hover > * {
   background-color: floralwhite !important;
-}
-
-tbody tr:not(:last-child) {
-  td, th {
-    border-block-end: 1px solid black;
-  }
-}
-
-tr *:nth-child(2),
-tr *:nth-child(6),
-tr *:nth-child(7),
-thead tr *:nth-child(8),
-thead tr *:nth-child(10),
-tbody tr *:nth-child(13),
-tbody tr *:nth-child(15)
-{
-  border-inline-start: 1px solid black;
 }
 
 th[scope=row],
@@ -155,6 +142,7 @@ th#notes {
   width: auto;
 }
 
+td[headers*=initiative],
 td[headers*=action] {
   text-align: center;
 }

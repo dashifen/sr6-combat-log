@@ -22,11 +22,11 @@
       },
 
       sort() {
-        alert('sort');
+        this.$store.commit('sort');
       },
 
       endRound() {
-        alert('endRound');
+        this.$store.commit('endRound');
       }
     }
   };
@@ -35,23 +35,29 @@
 <template>
   <div class="session">
     <table>
+      <colgroup>
+        <col class="character">
+        <col class="initiative" span="4">
+        <col class="actions" span="7">
+        <col class="stats" span="2">
+        <col class="notes">
+      </colgroup>
       <thead>
         <tr>
-          <th scope="col" id="character">Character</th>
+          <th scope="col" id="character" class="with-border">Character</th>
           <th scope="col" id="initiative">Init</th>
           <th scope="col" id="initiative-dice">Dice</th>
           <th scope="col" id="initiative-score">Roll</th>
-          <th scope="col" id="initiative-score">Score</th>
-          <th scope="col" id="major-action">Major<br>Action</th>
-          <th scope="col" id="minor-actions" colspan="6">Minor Actions</th>
+          <th scope="col" id="initiative-score" class="with-border">Score</th>
+          <th scope="col" id="major-action" class="with-border">Major<br>Action</th>
+          <th scope="col" id="minor-actions" colspan="6" class="with-border">Minor Actions</th>
           <th scope="col" id="edge">Edge</th>
-          <th scope="col" id="damage">Damage</th>
+          <th scope="col" id="damage" class="with-border">Damage</th>
           <th scope="col" id="notes">Notes</th>
         </tr>
       </thead>
       <tbody>
-        <tr is="vue:character" v-for="c in characters"
-          :name="c.name" :dice="c.dice" :edge="c.edge"></tr>
+        <tr is="vue:character" v-for="index in characters.length" :index="index - 1"></tr>
       </tbody>
     </table>
 

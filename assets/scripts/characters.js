@@ -1,27 +1,118 @@
 export const characters = [
   {
     "name": "Cipher",
+    "type": "pc",
+    "reaction": 6,
+    "intuition": 6,
+    "initiative": 12,
     "dice": 3,
-    "edge": 4
+    "roll": 0,
+    "score": 0,
+    "actions": {
+      "major": false,
+      "minor": [
+        false,
+        false,
+        false,
+        false,
+      ]
+    },
+    "damage":0,
+    "lowPainTolerance": false,
+    "highPainTolerance": 0,
+    "edge": 4,
+    "notes": ""
   },
   {
     "name": "PawPaw",
+    "type": "pc",
+    "reaction": 5,
+    "intuition": 3,
+    "initiative": 8,
     "dice": 2,
-    "edge": 3
+    "roll": 0,
+    "score": 0,
+    "actions": {
+      "major": false,
+      "minor": [
+        false,
+        false,
+        false,
+      ]
+    },
+    "damage":0,
+    "lowPainTolerance": false,
+    "highPainTolerance": 0,
+    "edge": 3,
+    "notes": ""
   },
   {
     "name": "Sonya",
+    "type": "pc",
+    "reaction": 6,
+    "intuition": 6,
+    "initiative": 12,
     "dice": 1,
-    "edge": 5
+    "roll": 0,
+    "score": 0,
+    "actions": {
+      "major": false,
+      "minor": [
+        false,
+        false,
+      ]
+    },
+    "damage":0,
+    "lowPainTolerance": false,
+    "highPainTolerance": 0,
+    "edge": 5,
+    "notes": ""
   },
   {
     "name": "Tomoya",
-    "dice": 5,
-    "edge": 3
+    "type": "pc",
+    "reaction": 9,
+    "intuition": 4,
+    "initiative": 13,
+    "dice": 4,
+    "roll": 0,
+    "score": 0,
+    "actions": {
+      "major": false,
+      "minor": [
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]
+    },
+    "damage":0,
+    "lowPainTolerance": false,
+    "highPainTolerance": 0,
+    "edge": 3,
+    "notes": ""
   },
   {
     "name": "Waver",
-    "dice": 3,
-    "edge": 3
+    "type": "pc",
+    "reaction": 4,
+    "intuition": 6,
+    "initiative": 10,
+    "dice": 1,
+    "roll": 0,
+    "score": 0,
+    "actions": {
+      "major": false,
+      "minor": [
+        false,
+        false,
+      ]
+    },
+    "damage":0,
+    "lowPainTolerance": false,
+    "highPainTolerance": 0,
+    "edge": 3,
+    "notes": ""
   },
 ];
