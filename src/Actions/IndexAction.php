@@ -38,6 +38,13 @@ class IndexAction extends AbstractAction
     
     $this->combatLog->db->execute($query->sql());
     $results = $this->combatLog->db->results();
-    return $results['tag'];
+    
+    // because we limit our results to a single selection, as long as we have
+    // results, we know that we can get a tag from the zeroth index of the
+    // array.
+    
+    return sizeof($results) > 0
+      ? $results[0]['tag']
+      : '';
   }
 }

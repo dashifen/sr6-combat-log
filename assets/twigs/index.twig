@@ -4,12 +4,19 @@
   <form method="post" action="/login">
     <fieldset>
       <legend>Connect to a current log:</legend>
-      <p>
-        Select your character and enter the session tag to continue. The most
-        recent session is tagged <em>{{ tag }}</em>. To start a new session,
-        leave the tag field blank.
+      <p>Select your character and enter the session tag to continue.</p>
+
+      {% if tag is not empty %}
+        <p>The most recent session is tagged <em>{{ tag }}</em>. To start a
+          new session, leave the tag field blank.</p>
+      {% endif %}
+
       </p>
       <ol>
+        <li>
+          <label for="tag">Session Tag</label>
+          <input id="tag" name="tag">
+        </li>
         <li>
           <label for="character">Character</label>
           <select id="character" name="character" required>
@@ -17,10 +24,6 @@
             <option value="gm">GM</option>
             <optgroup label="PCs"></optgroup>
           </select>
-        </li>
-        <li>
-          <label for="tag">Session Tag</label>
-          <input id="tag" name="tag">
         </li>
       </ol>
 

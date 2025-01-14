@@ -5,7 +5,7 @@ export const state = createStore({
   state() {
     return {
       grunts: 0,
-      characters: characters,
+      characters: characters.players,
     };
   },
   
@@ -66,6 +66,31 @@ export const state = createStore({
     },
     
     /**
+     * Adds an NPC to our list of characters.
+     *
+     * @param state
+     * @param {string} name
+     */
+    addCharacter(state, name) {
+      
+      // character code 64 is one letter before capital A.  so, when we add
+      // our incremented count of grunts to it, we get A, B, C, and so on.
+      
+      name = name || getMetatype() + ' ' + String.fromCharCode(64 + ++state.grunts);
+      state.characters.push(characters.addCharacter(name));
+    },
+    
+    /**
+     * Removes a character from our on-screen list.
+     *
+     * @param state
+     * @param {string} name
+     */
+    removeCharacter(state, name) {
+      state.characters = state.characters.filter(character => character.name !== name);
+    },
+    
+    /**
      * Sorts the characters in this combat session by initiative score and
      * then in ERIC (edge, reaction, intuition, coin-flip) order.
      *
@@ -98,8 +123,13 @@ export const state = createStore({
       });
     },
     
+    /**
+     * Resets each character's actions to start the next round.
+     *
+     * @param state
+     */
     endRound(state) {
-      for(let i = 0; i < state.characters.length; i++) {
+      for (let i = 0; i < state.characters.length; i++) {
         state.characters[i].major = 0;
         state.characters[i].minor = 0;
       }
@@ -118,7 +148,7 @@ export const state = createStore({
 function roll(character) {
   let roll = Number(character.initiative);
   for (let i = 0; i < character.dice; i++) {
-    roll += d(6)
+    roll += d(6);
   }
   
   return roll;
@@ -158,4 +188,27 @@ function calculateScore(character) {
   }
   
   return character.roll - modification;
+}
+
+/**
+ * Returns a metatype for an un-named grunt.
+ *
+ * @returns {string}
+ */
+function getMetatype() {
+  const type = d(100);
+  
+  if (type <= 66) {
+    return 'Human';
+  } else if (type <= 79) {
+    return 'Elf';
+  } else if (type <= 81) {
+    return 'Dwarf';
+  } else if (type <= 97) {
+    return 'Ork';
+  } else if (type <= 99) {
+    return 'Troll';
+  } else {
+    return 'Other';
+  }
 }

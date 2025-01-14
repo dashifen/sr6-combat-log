@@ -124,6 +124,10 @@ th[scope=row],
 th[scope=col]:first-child {
   text-align: left;
   width: 10rem;
+  
+  a {
+    color: black;
+  }
 }
 
 th[scope=col] {

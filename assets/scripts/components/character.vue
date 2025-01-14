@@ -55,6 +55,12 @@
 
       setNotes(event) {
         this._commitChange('notes', event.target.value);
+      },
+
+      remove(name) {
+        if (confirm('Remove ' + name + '?')) {
+          this.$store.commit('removeCharacter', name)
+        }
       }
     }
   };
@@ -63,7 +69,7 @@
 <template>
   <tr>
     <th scope="row" :id="character.name" headers="character" class="with-border">
-      {{ character.name }}
+      <a href="#" @click.prevent="remove(character.name)">{{ character.name }}</a>
     </th>
     <td v-if="isPlayer" colspan="2" :headers="character.name + ' initiative'">
       <button @click="roll">Roll</button>

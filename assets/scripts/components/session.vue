@@ -14,11 +14,11 @@
 
     methods: {
       addGrunt() {
-        alert('addGrunt');
+        this.$store.commit('addCharacter');
       },
 
       addLieutenant() {
-        alert('addLieutenant');
+        this.$store.commit('addCharacter', prompt('Enter Name'));
       },
 
       sort() {
