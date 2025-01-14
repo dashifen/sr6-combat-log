@@ -1,8 +1,6 @@
 import {createApp} from 'vue';
 import {state} from './state.js';
-import {characters} from './characters.js';
 import Session from './components/session.vue';
-
 
 export const SR6CombatLog = {
   /**
@@ -35,7 +33,12 @@ export const SR6CombatLog = {
     
     const group = document.querySelector('optgroup');
     const makeOption = (name) => new Option(name, name.toLowerCase());
-    characters.forEach((char) => group.appendChild(makeOption(char.name)));
+    
+    fetch('/characters?namesOnly=true')
+      .then((response) => response.json())
+      .then((characters) => characters.forEach(
+        character => group.appendChild(makeOption(character)))
+      );
   },
   
   /**
@@ -45,7 +48,18 @@ export const SR6CombatLog = {
    * @return {void}
    */
   session() {
-    createApp(Session).use(state).mount(document.querySelector('session'));
+    fetch('/characters')
+      .then((response) => response.json())
+      .then((characters) => {
+        
+        // now that we've gotten our list of characters, we commit them into
+        // our state object.  that initializes our state with the information
+        // in our database.  then, we can inform our Vue app to use that state
+        // and mount it to the DOM.
+        
+        state.commit('setCharacters', characters);
+        createApp(Session).use(state).mount(document.querySelector('session'));
+      });
   }
 };
 

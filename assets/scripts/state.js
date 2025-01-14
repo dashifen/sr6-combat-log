@@ -5,7 +5,7 @@ export const state = createStore({
   state() {
     return {
       grunts: 0,
-      characters: characters.players,
+      characters: {}
     };
   },
   
@@ -22,6 +22,17 @@ export const state = createStore({
   },
   
   mutations: {
+    /**
+     * Sets the characters property with a list of character data gathered
+     * outside this object, e.g. when the application is loaded.
+     *
+     * @param state
+     * @param characters
+     */
+    setCharacters(state, characters) {
+      this.state.characters = characters;
+    },
+    
     /**
      * Uses the data parameter to make a change to a character.
      *
