@@ -5,16 +5,6 @@ namespace Dashifen\SR6\CombatLog\Router;
 use Dashifen\SR6\CombatLog\CombatLog;
 use Dashifen\Router\Router as DashifenRouter;
 use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
-use Dashifen\SR6\CombatLog\Actions\Framework\ActionException;
-use Dashifen\SR6\CombatLog\Actions\{
-  CharactersAction,
-  DeleteAction,
-  IndexAction,
-  LoginAction,
-  LogoutAction,
-  ManageAction,
-  SessionAction
-};
 
 class Router extends DashifenRouter
 {
@@ -34,18 +24,15 @@ class Router extends DashifenRouter
    * @param CombatLog $log
    *
    * @return AbstractAction
-   * @throws ActionException
    */
   public function getActionObject(CombatLog $log): AbstractAction
   {
-    return match ($this->route->action) {
-      'IndexAction'      => new IndexAction($log, $this->request),
-      'LoginAction'      => new LoginAction($log, $this->request),
-      'LogoutAction'     => new LogoutAction($log, $this->request),
-      'SessionAction'    => new SessionAction($log, $this->request),
-      'ManageAction'     => new ManageAction($log, $this->request),
-      'DeleteAction'     => new DeleteAction($log, $this->request),
-      'CharactersAction' => new CharactersAction($log, $this->request),
-    };
+    // since this is a fairly small application, all of our actions are in the
+    // same namespace.  if we prepend that namespace to the action our parent
+    // identified as the one to handle this route, we get the full class name
+    // of the object we want to instantiate and return as follows:
+    
+    $action = 'Dashifen\\SR6\\CombatLog\\Actions\\' . $this->route->action;
+    return new $action($log, $this->request);
   }
 }

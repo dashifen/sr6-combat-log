@@ -1,10 +1,8 @@
 import {createStore} from 'vuex';
-import {characters} from './characters.js';
 
 export const state = createStore({
   state() {
     return {
-      grunts: 0,
       characters: {}
     };
   },
@@ -83,12 +81,15 @@ export const state = createStore({
      * @param {string} name
      */
     addCharacter(state, name) {
-      
-      // character code 64 is one letter before capital A.  so, when we add
-      // our incremented count of grunts to it, we get A, B, C, and so on.
-      
-      name = name || getMetatype() + ' ' + String.fromCharCode(64 + ++state.grunts);
-      state.characters.push(characters.addCharacter(name));
+      fetch('/session/new-character?name=' + name)
+        .then(response => response.json())
+        
+        // when the server responds with our new character, we can just push
+        // it into our state.  this does put them at the bottom of the list,
+        // but that's okay; we can just click the sort button to move them when
+        // we're ready to get them into the initiative order.
+        
+        .then(character => state.characters.push(character));
     },
     
     /**
