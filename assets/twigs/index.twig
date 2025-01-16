@@ -22,7 +22,10 @@
           <select id="character" name="character" required>
             <option value=""></option>
             <option value="gm">GM</option>
-            <optgroup label="PCs"></optgroup>
+            <hr>
+            {% for name in characters %}
+              <option value="name">{{ name }}</option>
+            {% endfor %}
           </select>
         </li>
       </ol>

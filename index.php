@@ -5,7 +5,7 @@ namespace Dashifen\SR6;
 use Exception;
 use Dashifen\SR6\CombatLog\CombatLog;
 use Dashifen\SR6\CombatLog\Router\Router;
-use Dashifen\SR6\CombatLog\Actions\Framework\ActionException;
+use Dashifen\SR6\CombatLog\Actions\ActionException;
 
 if (!class_exists(CombatLog::class)) {
   require_once 'vendor/autoload.php';

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dashifen\SR6\CombatLog\Actions;
+namespace Dashifen\SR6\CombatLog\Actions\Public;
 
+use Dashifen\SR6\CombatLog\Actions\AbstractAction;
 use Dashifen\SR6\CombatLog\Database\DatabaseException;
-use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
 
 class IndexAction extends AbstractAction
 {
@@ -16,7 +16,8 @@ class IndexAction extends AbstractAction
   public function execute(): void
   {
     $this->combatLog->render('index.twig', [
-      'tag' => $this->getRecentSessionTag(),
+      'characters' => $this->getCharacterNames(),
+      'tag'        => $this->getRecentSessionTag(),
     ]);
   }
   

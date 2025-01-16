@@ -4,7 +4,7 @@ namespace Dashifen\SR6\CombatLog\Router;
 
 use Dashifen\SR6\CombatLog\CombatLog;
 use Dashifen\Router\Router as DashifenRouter;
-use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
+use Dashifen\SR6\CombatLog\Actions\AbstractAction;
 
 class Router extends DashifenRouter
 {
@@ -27,12 +27,16 @@ class Router extends DashifenRouter
    */
   public function getActionObject(CombatLog $log): AbstractAction
   {
-    // since this is a fairly small application, all of our actions are in the
-    // same namespace.  if we prepend that namespace to the action our parent
-    // identified as the one to handle this route, we get the full class name
-    // of the object we want to instantiate and return as follows:
+    // since this is a mostly-private application, the only public actions
+    // are the index and login ones.  so, if this is not one of those, we know
+    // the object we need to instantiate and return is in the private
+    // namespace.
     
-    $action = 'Dashifen\\SR6\\CombatLog\\Actions\\' . $this->route->action;
+    $namespace =  !in_array($this->route->action, ['IndexAction','LoginAction'])
+      ? 'Dashifen\\SR6\\CombatLog\\Actions\\Private\\'
+      : 'Dashifen\\SR6\\CombatLog\\Actions\\Public\\';
+    
+    $action =  $namespace . $this->route->action;
     return new $action($log, $this->request);
   }
 }

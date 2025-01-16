@@ -103,7 +103,6 @@ class CombatLog
       // can see it in the DOM and, one day, we'll get rid of that.
       
       $context = array_merge($context, [
-        'template'   => basename($twig, '.twig'),
         'cssVersion' => filemtime($this->projectFolder . '/assets/styles.css'),
         'username'   => $this->session->getUsername(),
         'session'    => $this->session->getSession(),

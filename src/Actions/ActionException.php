@@ -1,6 +1,6 @@
 <?php
 
-namespace Dashifen\SR6\CombatLog\Actions\Framework;
+namespace Dashifen\SR6\CombatLog\Actions;
 
 use Dashifen\Exception\Exception;
 

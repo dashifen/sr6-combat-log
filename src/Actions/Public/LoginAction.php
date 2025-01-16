@@ -1,9 +1,9 @@
 <?php
 
-namespace Dashifen\SR6\CombatLog\Actions;
+namespace Dashifen\SR6\CombatLog\Actions\Public;
 
+use Dashifen\SR6\CombatLog\Actions\AbstractAction;
 use Dashifen\SR6\CombatLog\Database\DatabaseException;
-use Dashifen\SR6\CombatLog\Actions\Framework\AbstractAction;
 
 use function Latitude\QueryBuilder\field;
 
