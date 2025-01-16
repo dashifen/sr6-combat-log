@@ -3,6 +3,7 @@
 {% block head %}
 
   <script>
+    const username = "{{ username }}";
     const characters = {{ characters | json_encode | raw }};
   </script>
 
@@ -10,5 +11,42 @@
 {% block content %}
 
   <session></session>
+
+  <dialog id="pc-adder">
+    <form method="dialog">
+      <label>
+        Select PC to add:
+        <select name="player">
+          <option value=""></option>
+          {% for name in players %}
+            <option value="{{ name }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button value="cancel" autofocus>Cancel</button>
+      <button value="add">Add PC</button>
+    </form>
+  </dialog>
+
+  <dialog id="npc-adder">
+
+  </dialog>
+
+  <dialog id="pc-remover">
+    <p>Remove <span class="character-name"></span> from this session?</p>
+    <form method="dialog">
+      <button value="cancel" autofocus>No</button>
+      <button value="session">Yes</button>
+    </form>
+  </dialog>
+
+  <dialog id="npc-remover">
+    <p>Remove <span class="character-name"></span> from this session or from the database?</p>
+    <form method="dialog">
+      <button value="session" autofocus>Session</button>
+      <button value="database">Database</button>
+      <button value="cancel">Cancel</button>
+    </form>
+  </dialog>
 
 {% endblock %}

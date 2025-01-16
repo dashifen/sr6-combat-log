@@ -2,8 +2,33 @@ import {createStore} from 'vuex';
 
 export const state = createStore({
   state() {
+    
+    // the blank character contained herein is never actually used.  instead,
+    // the setCharacters mutation is used in the application.js initialization
+    // to replace it with the actual characters in a combat session.  but, by
+    // listing this object here, it allows an IDE to know what the properties
+    // of our character objects are.
+    
     return {
-      characters: {}
+      characters: [{
+        character_id: 0,
+        name: '',
+        type: '',
+        reaction: 1,
+        intuition: 1,
+        dice: 1,
+        edge: 0,
+        low_pain_tolerance: 0,
+        high_pain_tolerance: 0,
+        roll: 0,
+        score: 0,
+        damage: 0,
+        notes: '',
+        actions: {
+          major: false,
+          minor: [false, false, false, false, false, false],
+        },
+      }]
     };
   },
   
@@ -32,46 +57,23 @@ export const state = createStore({
     },
     
     /**
-     * Uses the data parameter to make a change to a character.
+     * Rolls for a character's initiative.
      *
      * @param state
-     * @param {{index: number, property: string, value: * }} data
+     * @param index
      */
-    setCharacterProperty(state, data) {
-      const character = state.characters[data.index];
-      const forceRoll = data.property === 'roll' && data.value === -1;
-      if (!forceRoll) {
-        
-        // if we're not here to force the roll for a player, we set this
-        // character's property to the value passed here.  notice that we want
-        // to keep things numeric if it's not the notes field.
-        
-        character[data.property] = data.property !== 'notes'
-          ? Number(data.value)
-          : data.value;
-      }
-      
-      // now, if we are here to force a roll or if we just messed with the
-      // attributes that make up a character's roll, we call the roll method
-      // below to calculate it.  then, we calculate their initiative score
-      // based on their roll and other impacting factors.
-      
-      if (forceRoll || data.property === 'initiative' || data.property === 'dice') {
-        character.roll = roll(character);
-      }
-      
-      character.score = calculateScore(character);
+    roll(state, index) {
+      state.characters[index].roll = roll(state.characters[index]);
     },
     
     /**
-     * Records a major or minor action for a character.
+     * Calculates a character's initiative score.
      *
      * @param state
-     * @param {{index: number, type: string, value: number }} data
+     * @param {number} index
      */
-    recordAction(state, data) {
-      const character = state.characters[data.index];
-      character[data.type] += data.value;
+    score(state, index) {
+      state.characters[index].score = calculateScore(state.characters[index]);
     },
     
     /**
@@ -81,7 +83,7 @@ export const state = createStore({
      * @param {string} name
      */
     addCharacter(state, name) {
-      fetch('/session/new-character?name=' + name)
+      fetch('/session/character/new?name=' + name)
         .then(response => response.json())
         
         // when the server responds with our new character, we can just push
@@ -96,10 +98,25 @@ export const state = createStore({
      * Removes a character from our on-screen list.
      *
      * @param state
-     * @param {string} name
+     * @param {{character_id: number, from: string}} data
      */
-    removeCharacter(state, name) {
-      state.characters = state.characters.filter(character => character.name !== name);
+    removeCharacter(state, data) {
+      state.characters = state.characters.filter(
+        character => character.character_id !== data.character_id
+      );
+      
+      // above, we keep characters that aren't the one matching our id.
+      // now, we send information to our server that'll remove them from the
+      // session or from the database entirely.
+      
+      fetch('/session/character/delete', {
+        body: objectToFormData(data),
+        method: 'POST',
+      })
+        .then(response => response.json())
+        .then(response => !response.success
+          ? alert("Couldn't delete.")
+          : '');
     },
     
     /**
@@ -142,8 +159,8 @@ export const state = createStore({
      */
     endRound(state) {
       for (let i = 0; i < state.characters.length; i++) {
-        state.characters[i].major = 0;
-        state.characters[i].minor = 0;
+        state.characters[i].major = false;
+        state.characters[i].minor = Array(6).fill(false);
       }
     }
   }
@@ -158,7 +175,7 @@ export const state = createStore({
  * @returns {number}
  */
 function roll(character) {
-  let roll = Number(character.initiative);
+  let roll = Number(character.reaction) + Number(character.intuition);
   for (let i = 0; i < character.dice; i++) {
     roll += d(6);
   }
@@ -184,6 +201,7 @@ function d(sides) {
  * @returns {number}
  */
 function calculateScore(character) {
+  
   // damage impacts a character's initiative score:  every three boxes of
   // damage reduces their initiative score by one.  two qualities change this
   // modification:  low pain tolerance doubles it and high pain tolerance
@@ -191,11 +209,11 @@ function calculateScore(character) {
   
   let modification = Math.floor(character.damage / 3);
   
-  if (character.lowPainTolerance) {
+  if (character.low_pain_tolerance) {
     modification *= 2;
   }
   
-  if (character.highPainTolerance) {
+  if (character.high_pain_tolerance) {
     modification -= 1;
   }
   
@@ -203,24 +221,13 @@ function calculateScore(character) {
 }
 
 /**
- * Returns a metatype for an un-named grunt.
+ * Converts a random object to a FormData one.
  *
- * @returns {string}
+ * @param object
+ * @returns {FormData}
  */
-function getMetatype() {
-  const type = d(100);
-  
-  if (type <= 66) {
-    return 'Human';
-  } else if (type <= 79) {
-    return 'Elf';
-  } else if (type <= 81) {
-    return 'Dwarf';
-  } else if (type <= 97) {
-    return 'Ork';
-  } else if (type <= 99) {
-    return 'Troll';
-  } else {
-    return 'Other';
-  }
+function objectToFormData(object) {
+  const formData = new FormData();
+  Object.keys(object).forEach(key => formData.append(key, object[key]));
+  return formData;
 }

@@ -11,22 +11,21 @@
           new session, leave the tag field blank.</p>
       {% endif %}
 
-      </p>
       <ol>
-        <li>
-          <label for="tag">Session Tag</label>
-          <input id="tag" name="tag">
-        </li>
         <li>
           <label for="character">Character</label>
           <select id="character" name="character" required>
             <option value=""></option>
             <option value="gm">GM</option>
             <hr>
-            {% for name in characters %}
-              <option value="name">{{ name }}</option>
+            {% for id, name in characters %}
+              <option value="{{ id }}">{{ name }}</option>
             {% endfor %}
           </select>
+        </li>
+        <li>
+          <label for="tag">Session Tag</label>
+          <input id="tag" name="tag">
         </li>
       </ol>
 

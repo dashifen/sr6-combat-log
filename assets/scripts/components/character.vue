@@ -1,10 +1,17 @@
 <script>
   export default {
-    props: ['index'],
+    props: ['i'],
 
     computed: {
+      isGM() {
+
+        // username is a global variable defined in session.twig.
+
+        return username === 'gm';
+      },
+
       character() {
-        return this.$store.getters.character(this.index);
+        return this.$store.getters.character(this.i);
       },
 
       isPlayer() {
@@ -13,107 +20,129 @@
     },
 
     methods: {
-      _commitChange(property, value) {
-        this.$store.commit('setCharacterProperty', {
-          index: this.index,
-          property: property,
-          value: value
-        });
-      },
-
-      roll() {
-        this._commitChange('roll', -1);
-      },
-
-      setInitiative(event) {
-        this._commitChange('initiative', event.target.value);
-      },
-
-      setDice(event) {
-        this._commitChange('dice', event.target.value);
-      },
-
-      setRoll(event) {
-        this._commitChange('roll', event.target.value);
-      },
-
-      recordAction(event) {
-        this.$store.commit('recordAction', {
-          index: this.index,
-          type: event.target.dataset.type,
-          value: event.target.checked ? 1 : -1,
-        });
-      },
-
-      setEdge(event) {
-        this._commitChange('edge', event.target.value);
-      },
-
-      setDamage(event) {
-        this._commitChange('damage', event.target.value);
-      },
-
-      setNotes(event) {
-        this._commitChange('notes', event.target.value);
-      },
-
+      /**
+       * Removes a character either from the screen (leaving them in the
+       * database) or from the session entirely (deleting them from it).
+       *
+       * @param {string} name
+       */
       remove(name) {
-        if (confirm('Remove ' + name + '?')) {
-          this.$store.commit('removeCharacter', name)
+        const dialog = document.getElementById(
+          this.isPlayer ? 'pc-remover' : 'npc-remover'
+        );
+
+        const interval = setInterval(() => {
+          if (!dialog.open) {
+            if (['session', 'database'].includes(dialog.returnValue)) {
+              this.$store.commit('removeCharacter', {
+                character: this.character.character_id,
+                from: dialog.returnValue,
+              });
+            }
+
+            // regardless of what the dialog's return value was, if we closed
+            // it, we can clear this interval.  otherwise, it would keep going
+            // and waste memory.
+
+            clearInterval(interval);
+          }
+        }, 500);
+
+        dialog.querySelector('.character-name').innerText = name;
+        dialog.showModal();
+      },
+
+      /**
+       * Handles changes that aren't simple v-model-style updates.
+       *
+       * @param {FormDataEvent} event
+       */
+      characterChangeHandler(event) {
+        const rollers = ['reaction', 'intuition', 'dice'];
+        if (!this.isPlayer && rollers.includes(event.target.name)) {
+
+          // if this isn't a player, and we've changed any of the components
+          // that correspond to a character's initiative roll, then we want to
+          // produce a roll for this npc.  for players, we assume they tell us
+          // their roll, put it in themselves, or we can double-click the roll
+          // field.
+
+          this.$store.commit('roll', this.i);
         }
+
+        if (rollers.concat(['roll', 'damage']).includes(event.target.name)) {
+
+          // also, if our change involves any of the above and also this
+          // character's roll or the damage, then we'll make sure their
+          // initiative score is updated as well.
+
+          this.$store.commit('score', this.i);
+        }
+      },
+
+      /**
+       * Rolls a player's initiative.
+       *
+       * @param {FormDataEvent} event
+       */
+      rollPlayer(event) {
+        this.$store.commit('roll', this.i);
+        event.target.blur();
       }
     }
   };
 </script>
 
 <template>
-  <tr>
+  <tr @change="characterChangeHandler">
     <th scope="row" :id="character.name" headers="character" class="with-border">
-      <a href="#" @click.prevent="remove(character.name)">{{ character.name }}</a>
+      {{ character.name }}
     </th>
-    <td v-if="isPlayer" colspan="2" :headers="character.name + ' initiative'">
-      <button @click="roll">Roll</button>
+    <td :headers="character.name + ' reaction'" class="initiative">
+      <input type="number" name="reaction" min="1" max="10" v-model="character.reaction">
     </td>
-    <td v-if="!isPlayer" :headers="character.name + ' initiative'">
-      <input type="text" @change="setInitiative" v-model="character.initiative">
+    <td :headers="character.name + ' intuition'" class="initiative">
+      <input type="number" name="intuition" min="1" max="10" v-model="character.intuition">
     </td>
-    <td v-if="!isPlayer" :headers="character.name + ' initiative-dice'">
-      <input type="number" min="1" max="5" @change="setDice" v-model="character.dice">
+    <td :headers="character.name + ' initiative-dice'" class="initiative">
+      <input type="number" name="dice" min="1" max="5" v-model="character.dice">
     </td>
-    <td :headers="character.name + ' initiative-roll'">
-      <input type="text" @change="setRoll" v-model="character.roll">
+    <td :headers="character.name + ' initiative-roll'" class="initiative">
+      <input type="text" name="roll" @dblclick="rollPlayer" v-model="character.roll">
     </td>
-    <td :headers="character.name + ' initiative-score'" class="with-border">
+    <td :headers="character.name + ' initiative-score'" class="initiative with-border">
       {{ character.score }}
     </td>
 
     <td :headers="character.name + ' major-action'" class="with-border">
-      <input type="checkbox" data-type="major" v-model="character.actions.major" @click="recordAction">
+      <input type="checkbox" data-type="major" v-model="character.actions.major">
     </td>
 
     <td :headers="character.name + ' minor-actions'">
-      <input type="checkbox" data-type="minor" data-i="0" v-model="character.actions.minor[0]" @click="recordAction">
+      <input type="checkbox" data-type="minor" data-i="0" v-model="character.actions.minor[0]">
     </td>
 
     <td v-for="i in 5"
       :headers="character.name + ' minor-actions'"
       :class="i === 5 ? 'with-border' : ''"
     >
-      <input v-if="i <= character.dice"
+      <input :class="i <= character.dice ? 'visible' : 'invisible'"
         type="checkbox" data-type="minor" :data-i="i"
         v-model="character.actions.minor[i]"
-        @click="recordAction"
       >
     </td>
 
     <td :headers="character.name + ' edge'">
-      <input type="number" min="0" max="7" @change="setEdge" v-model="character.edge">
+      <input type="number" name="edge" min="0" max="7" v-model="character.edge">
     </td>
     <td :headers="character.name + ' damage'" class="with-border">
-      <input type="number" min="0" max="20" value="0" @change="setDamage" v-model="character.damage">
+      <input type="number" name="damage" min="0" max="20" value="0" v-model="character.damage">
     </td>
     <td :headers="character.name + ' notes'">
-      <input type="text" @change="setNotes" v-model="character.notes">
+      <input type="text" name="notes" v-model="character.notes">
+    </td>
+    <td v-if="isGM" :headers="character.name + ' notes'">
+      <a href="#" @click.prevent="remove(character.name)">&times;</a>
     </td>
   </tr>
 </template>

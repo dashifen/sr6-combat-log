@@ -39,7 +39,8 @@ class ManageAction extends AbstractPrivateAction
       ->orderBy('started', 'desc')
       ->compile();
     
-    $this->combatLog->db->execute($query->sql(), $query->params());
-    return $this->combatLog->db->results();
+    return $this->combatLog->db
+      ->execute($query->sql(), $query->params())
+      ->results();
   }
 }

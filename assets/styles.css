@@ -109,6 +109,10 @@ td, th {
   &.with-border {
     border-inline-end: 1px solid black;
   }
+  
+  &[headers*=minor-actions] {
+    padding-inline: 0;
+  }
 }
 
 thead,
@@ -124,10 +128,6 @@ th[scope=row],
 th[scope=col]:first-child {
   text-align: left;
   width: 10rem;
-  
-  a {
-    color: black;
-  }
 }
 
 th[scope=col] {
@@ -138,7 +138,7 @@ th[scope=col] {
 th#edge,
 th#damage,
 th#major-action,
-td[headers*=initiative] {
+td.initiative {
   width: 3.5rem;
 }
 
@@ -151,15 +151,23 @@ td[headers*=action] {
   text-align: center;
 }
 
-td[headers*=minor-actions] {
-  width: 1rem;
-}
-
 td input {
   &[type=text],
   &[type=number] {
     width: 100%;
   }
+  
+  &.invisible {
+    visibility: hidden;
+  }
+}
+
+td a {
+  color: firebrick;
+  font-weight: bold;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-decoration: none;
 }
 
 .session {

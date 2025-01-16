@@ -154,12 +154,13 @@ class Database
   /**
    * Returns an array of the results of a previously executed query.
    *
-   * @param int $mode
+   * @param int  $mode
+   * @param bool $quick
    *
    * @return array
    * @throws DatabaseException
    */
-  public function results(int $mode = MYSQLI_ASSOC): array
+  public function results(int $mode = MYSQLI_ASSOC, bool $quick = false): array
   {
     if (!is_a($this->query, mysqli_stmt::class)) {
       throw new DatabaseException('Execute query before accessing results.',
@@ -174,7 +175,27 @@ class Database
     $result = $this->query->get_result();
     $results = $result->fetch_all($mode);
     $result->free();
-    return $results;
+    
+    // if the quick flag is set, and we have exactly one row in our results,
+    // then we return that row instead of the array that contains it.  this is
+    // more or less simply for the convenience of the calling scope.
+    
+    return $quick && sizeof($results) === 1
+      ? array_shift($results)
+      : $results;
+  }
+  
+  /**
+   * Returns "quick" results if a query returns one and only one row.
+   *
+   * @param int $mode
+   *
+   * @return array
+   * @throws DatabaseException
+   */
+  public function quickResults(int $mode = MYSQLI_ASSOC): array
+  {
+    return $this->results($mode, true);
   }
   
   /**

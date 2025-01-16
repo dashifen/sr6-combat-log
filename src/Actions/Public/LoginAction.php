@@ -64,17 +64,9 @@ class LoginAction extends AbstractAction
     
     $results = $this->combatLog->db
       ->execute($query->sql(), $query->params())
-      ->results();
+      ->quickResults();
     
-    // because tags are unique, we know that if we have data for this session
-    // then we have only one index (the zeroth) in our results.  otherwise, we
-    // just return zero.  theoretically, we should only be in a situation that
-    // would produce a zero if someone deletes a session while someone else is
-    // logging in, and we'll just try not to do that.
-    
-    return sizeof($results) > 0
-      ? $results[0]['session_id']
-      : 0;
+    return $results['session_id'] ?? 0;
   }
   
   /**

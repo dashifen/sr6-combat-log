@@ -4,9 +4,12 @@ namespace Dashifen\SR6\CombatLog\Actions\Private;
 
 use Dashifen\SR6\CombatLog\Database\DatabaseException;
 use Dashifen\SR6\CombatLog\Actions\AbstractPrivateAction;
+use Dashifen\SR6\CombatLog\Traits\CharacterTransformationTrait;
 
 class SessionAction extends AbstractPrivateAction
 {
+  use CharacterTransformationTrait;
+  
   /**
    * Executes the behaviors necessary to follow a Route.
    *
@@ -16,7 +19,8 @@ class SessionAction extends AbstractPrivateAction
   public function execute(): void
   {
     $this->combatLog->render('session.twig', [
-      'characters' => $this->getCharacters()
+      'characters' => $this->getSessionCharacters(),
+      'players'    => $this->getPlayers(),
     ]);
   }
   
@@ -28,25 +32,13 @@ class SessionAction extends AbstractPrivateAction
    * @return array
    * @throws DatabaseException
    */
-  protected function getCharacters(bool $namesOnly = false): array
+  protected function getSessionCharacters(bool $namesOnly = false): array
   {
-    $characters = parent::getCharacters($namesOnly);
+    // the transformCharacter method is brought into this object's scope by the
+    // use of the CharacterTransformationTrait above.  it handles changes that
+    // we need to make between the database and the Vuex state object.  we can
+    // apply that transformation to the characters in the database as follows:
     
-    // the data in the database is almost exactly what our JavaScript wants.
-    // the only difference is how the DB handles actions.  it stores a single
-    // string of zeros for actions remaining and ones for actions taken.  the
-    // first bit refers to the major action; the other six are possible minor
-    // actions.  we convert those to booleans that Vue uses as the v-model for
-    // checkboxes on-screen.
-    
-    foreach ($characters as &$character) {
-      $actions = str_split($character['actions']);
-      $character['actions'] = [
-        'major' => (bool) array_shift($actions),
-        'minor' => array_map(fn($x) => (bool) $x, $actions),
-      ];
-    }
-    
-    return $characters;
+    return array_map([$this, 'transformCharacter'], parent::getSessionCharacters());
   }
 }

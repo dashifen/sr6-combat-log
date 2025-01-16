@@ -4,10 +4,13 @@ namespace Dashifen\SR6\CombatLog\Router;
 
 use Dashifen\SR6\CombatLog\CombatLog;
 use Dashifen\Router\Router as DashifenRouter;
+use Dashifen\SR6\CombatLog\Traits\DebuggingTrait;
 use Dashifen\SR6\CombatLog\Actions\AbstractAction;
 
 class Router extends DashifenRouter
 {
+  use DebuggingTrait;
+  
   /**
    * Returns true if the Route produced by an auto-router should be private.
    *
@@ -27,16 +30,23 @@ class Router extends DashifenRouter
    */
   public function getActionObject(CombatLog $log): AbstractAction
   {
-    // since this is a mostly-private application, the only public actions
-    // are the index and login ones.  so, if this is not one of those, we know
-    // the object we need to instantiate and return is in the private
-    // namespace.
-    
-    $namespace =  !in_array($this->route->action, ['IndexAction','LoginAction'])
-      ? 'Dashifen\\SR6\\CombatLog\\Actions\\Private\\'
-      : 'Dashifen\\SR6\\CombatLog\\Actions\\Public\\';
-    
-    $action =  $namespace . $this->route->action;
+    $namespace = $this->getNamespace();
+    $action = $namespace . $this->route->action;
     return new $action($log, $this->request);
+  }
+  
+  /**
+   * Returns the name space for an action.
+   *
+   * @return string
+   */
+  private function getNamespace(): string
+  {
+    $request = $this->request->getServerVar('REQUEST_URI');
+    return 'Dashifen\\SR6\\CombatLog\\Actions\\' . match (true) {
+        str_contains($request, 'character') => 'Private\\Character\\',
+        str_contains($request, 'session')   => 'Private\\',
+        default                             => 'Public\\',
+      };
   }
 }

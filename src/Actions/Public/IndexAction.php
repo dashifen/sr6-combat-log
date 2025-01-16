@@ -16,7 +16,7 @@ class IndexAction extends AbstractAction
   public function execute(): void
   {
     $this->combatLog->render('index.twig', [
-      'characters' => $this->getCharacterNames(),
+      'characters' => $this->getPlayers(),
       'tag'        => $this->getRecentSessionTag(),
     ]);
   }
@@ -36,15 +36,10 @@ class IndexAction extends AbstractAction
       ->limit(1)
       ->compile();
     
-    $this->combatLog->db->execute($query->sql());
-    $results = $this->combatLog->db->results();
+    $results = $this->combatLog->db
+      ->execute($query->sql())
+      ->quickResults();
     
-    // because we limit our results to a single selection, as long as we have
-    // results, we know that we can get a tag from the zeroth index of the
-    // array.
-    
-    return sizeof($results) > 0
-      ? $results[0]['tag']
-      : '';
+    return $results['tag'] ?? '';
   }
 }
