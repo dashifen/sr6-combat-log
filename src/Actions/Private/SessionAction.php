@@ -18,9 +18,11 @@ class SessionAction extends AbstractPrivateAction
    */
   public function execute(): void
   {
+    $sessionCharacters = $this->getSessionCharacters();
+    $sessionCharacterIds = array_column($sessionCharacters, 'character_id');
     $this->combatLog->render('session.twig', [
-      'characters' => $this->getSessionCharacters(),
-      'players'    => $this->getPlayers(),
+      'players'    => $this->getPlayers($sessionCharacterIds),
+      'characters' => $sessionCharacters,
     ]);
   }
   

@@ -199,6 +199,34 @@ class Database
   }
   
   /**
+   * Returns query results where the first column becomes array indices and
+   * subsequent columns the values.  For example, if we select columns A, B,
+   * and C, the results are A => B, C.
+   *
+   * @param int $mode
+   *
+   * @return array
+   * @throws DatabaseException
+   */
+  public function mapResults(int $mode = MYSQLI_ASSOC): array
+  {
+    foreach ($this->results($mode) as $result) {
+      
+      // the following statement executes the array_shift call to identify
+      // the array index first.  that reduces the size of $result by one.  if
+      // the remaining $result is only one column, we simply shift it off so
+      // that our map is A => B rather than A => [B].  if there's more than
+      // one value left, we just leave things alone (i.e. A => [B, C]).
+      
+      $results[array_shift($result)] = sizeof($result) === 1
+        ? array_shift($result)
+        : $result;
+    }
+    
+    return $results ?? [];
+  }
+  
+  /**
    * Returns the number of rows changed, deleted, inserted, or matched by our
    * query.
    *

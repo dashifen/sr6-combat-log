@@ -22,7 +22,7 @@
       addPlayer() {
         const dialog = document.getElementById('pc-adder');
         Dialogs.watch(dialog, (data) => { this.$store.commit('addCharacter', data) });
-        dialog.querySelector('select').selectedIndex = 0;
+        dialog.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
         dialog.showModal();
       },
 

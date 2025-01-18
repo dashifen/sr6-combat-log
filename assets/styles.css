@@ -175,7 +175,7 @@ td input {
 }
 
 dialog {
-  padding: 0;
+  max-width: 40%;
   position: relative;
   
   button.dialog-cancel {
@@ -204,10 +204,6 @@ dialog {
       height: 100%;
       width: 100%;
     }
-  }
-  
-  form {
-    margin: 1.5rem 1rem 1rem;
   }
 }
 

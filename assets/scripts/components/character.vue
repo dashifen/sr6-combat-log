@@ -1,4 +1,6 @@
 <script>
+  import {Dialogs} from '../dialogs.js';
+
   export default {
     props: ['i'],
 
@@ -21,34 +23,30 @@
 
     methods: {
       /**
-       * Removes a character either from the screen (leaving them in the
-       * database) or from the session entirely (deleting them from it).
+       * Removes a character either from the session (leaving them in the
+       * database) or from the database entirely.  note:  PCs can't be deleted
+       * here.
        *
-       * @param {string} name
+       * @param {string} characterName
+       * @param {number} characterId
        */
-      remove(name) {
-        const dialog = document.getElementById(
-          this.isPlayer ? 'pc-remover' : 'npc-remover'
-        );
+      remove(characterName, characterId) {
+        const dialogId = this.isPlayer ? 'pc-remover' : 'npc-remover';
+        const dialog = document.getElementById(dialogId);
 
-        const interval = setInterval(() => {
-          if (!dialog.open) {
-            if (['session', 'database'].includes(dialog.returnValue)) {
-              this.$store.commit('removeCharacter', {
-                character: this.character.character_id,
-                from: dialog.returnValue,
-              });
-            }
+        // the "from" data that we receive from the dialog is either the word
+        // session or database indicating how permanently this character is
+        // removed.  we pass that as well as the character ID to out $store
+        // and let it take over from here.
 
-            // regardless of what the dialog's return value was, if we closed
-            // it, we can clear this interval.  otherwise, it would keep going
-            // and waste memory.
+        Dialogs.watch(dialog, (from) => {
+          this.$store.commit('removeCharacter', {
+            character_id: characterId,
+            from: from
+          });
+        });
 
-            clearInterval(interval);
-          }
-        }, 500);
-
-        dialog.querySelector('.character-name').innerText = name;
+        dialog.querySelector('.character-name').innerText = characterName;
         dialog.showModal();
       },
 
@@ -142,7 +140,9 @@
       <input type="text" name="notes" v-model="character.notes">
     </td>
     <td v-if="isGM" :headers="character.name + ' notes'">
-      <a href="#" class="closer" @click.prevent="remove(character.name)">&times;</a>
+      <a href="#" class="closer"
+        @click.prevent="remove(character.name, character.character_id)"
+      >&times;</a>
     </td>
   </tr>
 </template>

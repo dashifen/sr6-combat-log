@@ -26,7 +26,7 @@ export const Dialogs = {
     dialog.querySelectorAll('.dialog-cancel').forEach(element => {
       element.addEventListener('click', (event) => {
         event.preventDefault();
-        dialog.close();
+        dialog.close('cancel');
       });
     });
   },
@@ -41,18 +41,21 @@ export const Dialogs = {
    */
   initializeProceed(dialog) {
     dialog.querySelectorAll('.dialog-proceed').forEach(element => {
-      element.addEventListener('click', (event) => {
-        event.preventDefault();
-        
-        // unlike the cancel action above, the proceed action has a little bit
-        // more to do:  check for a field with a .return-value class.  if we
-        // find one, then we use its value as the dialog's return value.
-        // otherwise, we just close the dialog and let the default behaviors
-        // take over.
-        
-        const returnField = dialog.querySelector('.return-value');
-        !!returnField ? dialog.close(returnField.value) : dialog.close();
-      })
+      element.addEventListener('click',
+        /**
+         * @param {FormDataEvent} event
+         */
+        (event) => {
+          event.preventDefault();
+          
+          // unlike the cancel action above, the proceed action has a little bit
+          // more to do:  check for a field with a .return-value class.  if we
+          // find one, then we use its value as the dialog's return value.
+          // otherwise, we use the event target's value.
+          
+          const returnField = dialog.querySelector('.return-value');
+          dialog.close(!!returnField ? returnField.value : event.target.value);
+        });
     });
   },
   

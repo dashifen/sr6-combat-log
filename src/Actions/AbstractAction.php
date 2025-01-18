@@ -54,10 +54,12 @@ abstract class AbstractAction implements ActionInterface
   /**
    * Returns a map of character IDs to names for PCs in the database.
    *
+   * @param array|null $skipThese
+   *
    * @return array
    * @throws DatabaseException
    */
-  protected function getPlayers(): array
+  protected function getPlayers(?array $skipThese = null): array
   {
     $query = $this->combatLog->queryFactory
       ->select('character_id', 'name')
@@ -67,11 +69,19 @@ abstract class AbstractAction implements ActionInterface
     
     $results = $this->combatLog->db
       ->execute($query->sql(), $query->params())
-      ->results();
+      ->mapResults();
     
-    return array_combine(
-      array_column($results, 'character_id'),
-      array_column($results, 'name')
-    );
+    if ($skipThese !== null) {
+      
+      // if the $skipThese array is not null, then it lists the IDs of
+      // characters that we do not need to return to the calling scope.  we'll
+      // use array_filter to remove anything that's in the parameter array and
+      // then proceed below.
+      
+      $filter = fn($characterId) => !in_array($characterId, $skipThese);
+      $results = array_filter($results, $filter, ARRAY_FILTER_USE_KEY);
+    }
+    
+    return $results;
   }
 }

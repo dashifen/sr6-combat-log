@@ -12,54 +12,63 @@
 
   <session></session>
 
-  <dialog id="pc-adder">
-    <form method="dialog">
-      <p>
-        <label class="before">
-          Select PC to add:
-          <select class="return-value" autofocus>
-            <option value=""></option>
-            {% for id, name in players %}
-              <option value="{{ id }}">{{ name }}</option>
-            {% endfor %}
-          </select>
-        </label>
-      </p>
+  {% if players | length > 0 %}
 
-      <button class="dialog-proceed" value="add">Add PC</button>
+    <dialog id="pc-adder">
       <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
-    </form>
-  </dialog>
+      <form method="dialog">
+        <p>
+          <label class="before">
+            Select PC to add:
+            <select class="return-value" autofocus>
+              <option value=""></option>
+              {% for id, name in players %}
+                <option value="{{ id }}">{{ name }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </p>
+
+        <button class="dialog-proceed" value="add">Add PC</button>
+      </form>
+    </dialog>
+
+  {% else %}
+
+    <dialog id="pc-adder">
+      <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
+      <p>All PCs appear to be a part of this session. Refresh the page if
+        this is no longer the case and the missing ones will appear here when
+        it reloads.</p>
+    </dialog>
+
+  {% endif %}
 
   <dialog id="npc-adder">
+    <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
     <form method="dialog">
       <p>
         <label class="before">
-          Enter NPC name or leave blank for random.<br>
+          Enter an NPC name or leave blank for random:<br>
           <input class="return-value" autofocus>
         </label>
       </p>
 
       <button class="dialog-proceed" value="add">Add NPC</button>
-      <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
     </form>
   </dialog>
 
   <dialog id="pc-remover">
+    <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
     <p>Remove <span class="character-name"></span> from this session?</p>
-    <form method="dialog">
-      <button value="cancel" autofocus>No</button>
-      <button value="session">Yes</button>
-    </form>
+    <button class="dialog-proceed" value="session">Yes</button>
   </dialog>
 
   <dialog id="npc-remover">
+    <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
     <p>Remove <span class="character-name"></span> from this session or from the database?</p>
-    <form method="dialog">
-      <button value="session" autofocus>Session</button>
-      <button value="database">Database</button>
-      <button value="cancel">Cancel</button>
-    </form>
+    <button class="dialog-proceed" value="database">Database</button>
+    <button class="dialog-proceed" value="session">Session</button>
   </dialog>
 
 {% endblock %}

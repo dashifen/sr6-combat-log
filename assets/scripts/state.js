@@ -57,6 +57,51 @@ export const state = createStore({
     },
     
     /**
+     * Adds a character to this combat session.
+     *
+     * @param state
+     * @param {number|string} character
+     */
+    addCharacter(state, character) {
+      fetch('/session/character/add?character=' + character)
+        .then(response => response.json())
+        
+        // the server responds with a new character object.  the way we get
+        // that onto the screen is by pushing it onto our state's list of
+        // characters.  Vue will take over from there.
+        
+        .then(character => state.characters.push(character));
+    },
+    
+    /**
+     * Removes a character from our on-screen list.
+     *
+     * @param state
+     * @param {{character_id: number, from: string}} data
+     */
+    removeCharacter(state, data) {
+      fetch('/session/character/remove', {
+        body: objectToFormData(data),
+        method: 'POST',
+      })
+        .then(response => response.json())
+        .then(response => {
+          
+          // when we get back from the server, if it wasn't successful, we'll
+          // simply flag an alert on-screen.  otherwise, we filter the list of
+          // characters and keep those that don't match the character id in
+          // our data object.
+          
+          if (!response.success) {
+            return alert("Couldn't delete.");
+          }
+          
+          const filter = char => char.character_id !== data.character_id
+          state.characters = state.characters.filter(filter);
+        });
+    },
+    
+    /**
      * Rolls for a character's initiative.
      *
      * @param state
@@ -74,51 +119,6 @@ export const state = createStore({
      */
     score(state, index) {
       state.characters[index].score = calculateScore(state.characters[index]);
-    },
-    
-    /**
-     * Adds an NPC to our list of characters.
-     *
-     * @param state
-     * @param {number} characterId
-     */
-    addCharacter(state, characterId) {
-      console.log(characterId);
-      
-      /*fetch('/session/character/new?name=' + name)
-        .then(response => response.json())
-        
-        // when the server responds with our new character, we can just push
-        // it into our state.  this does put them at the bottom of the list,
-        // but that's okay; we can just click the sort button to move them when
-        // we're ready to get them into the initiative order.
-        
-        .then(character => state.characters.push(character));*/
-    },
-    
-    /**
-     * Removes a character from our on-screen list.
-     *
-     * @param state
-     * @param {{character_id: number, from: string}} data
-     */
-    removeCharacter(state, data) {
-      state.characters = state.characters.filter(
-        character => character.character_id !== data.character_id
-      );
-      
-      // above, we keep characters that aren't the one matching our id.
-      // now, we send information to our server that'll remove them from the
-      // session or from the database entirely.
-      
-      fetch('/session/character/delete', {
-        body: objectToFormData(data),
-        method: 'POST',
-      })
-        .then(response => response.json())
-        .then(response => !response.success
-          ? alert("Couldn't delete.")
-          : '');
     },
     
     /**
