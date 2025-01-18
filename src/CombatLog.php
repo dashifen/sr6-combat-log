@@ -4,7 +4,6 @@ namespace Dashifen\SR6\CombatLog;
 
 use Dotenv\Dotenv;
 use Twig\Environment;
-use Twig\TwigFunction;
 use Twig\Loader\FilesystemLoader;
 use Twig\Error\Error as TwigException;
 use Dashifen\Session\SessionInterface;

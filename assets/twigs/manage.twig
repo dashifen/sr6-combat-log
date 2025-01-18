@@ -9,12 +9,19 @@
     <ol>
       {% for combat in sessions %}
         <li>
-          <label class="checkbox">
+          <label class="before">
             <input type="checkbox" name="sessions[]" value="{{ combat.session_id }}">
             {{ combat.date }} - {{ combat.tag }}
           </label>
         </li>
       {% endfor %}
+
+      <li>
+        <label class="before">
+          <input type="checkbox" name="characters" value="yes">
+          Also delete unneeded NPCs
+        </label>
+      </li>
     </ol>
 
     <button type="submit">Delete Sessions</button>

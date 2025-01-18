@@ -80,10 +80,12 @@ export const state = createStore({
      * Adds an NPC to our list of characters.
      *
      * @param state
-     * @param {string} name
+     * @param {number} characterId
      */
-    addCharacter(state, name) {
-      fetch('/session/character/new?name=' + name)
+    addCharacter(state, characterId) {
+      console.log(characterId);
+      
+      /*fetch('/session/character/new?name=' + name)
         .then(response => response.json())
         
         // when the server responds with our new character, we can just push
@@ -91,7 +93,7 @@ export const state = createStore({
         // but that's okay; we can just click the sort button to move them when
         // we're ready to get them into the initiative order.
         
-        .then(character => state.characters.push(character));
+        .then(character => state.characters.push(character));*/
     },
     
     /**

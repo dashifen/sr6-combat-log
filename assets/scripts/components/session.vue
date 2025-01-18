@@ -1,4 +1,5 @@
 <script>
+  import {Dialogs} from '../dialogs.js';
   import character from './character.vue';
 
   export default {
@@ -20,26 +21,16 @@
     methods: {
       addPlayer() {
         const dialog = document.getElementById('pc-adder');
-        const interval = setInterval(() => {
-          if (!dialog.open) {
-            if (dialog.returnValue === 'add') {
-              this.$store.commit('addCharacter', )
-            }
-
-            // regardless of what the dialog's return value was, if we closed
-            // it, we can clear this interval.  otherwise, it would keep going
-            // and waste memory.
-
-            clearInterval(interval);
-          }
-        }, 500);
-
+        Dialogs.watch(dialog, (data) => { this.$store.commit('addCharacter', data) });
         dialog.querySelector('select').selectedIndex = 0;
         dialog.showModal();
       },
 
       addNonPlayer() {
-        this.$store.commit('addNonPlayer');
+        const dialog = document.getElementById('npc-adder');
+        Dialogs.watch(dialog, (data) => { this.$store.commit('addCharacter', data) });
+        dialog.querySelector('input').value = '';
+        dialog.showModal();
       },
 
       sort() {

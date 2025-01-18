@@ -14,22 +14,35 @@
 
   <dialog id="pc-adder">
     <form method="dialog">
-      <label>
-        Select PC to add:
-        <select name="player">
-          <option value=""></option>
-          {% for name in players %}
-            <option value="{{ name }}">{{ name }}</option>
-          {% endfor %}
-        </select>
-      </label>
-      <button value="cancel" autofocus>Cancel</button>
-      <button value="add">Add PC</button>
+      <p>
+        <label class="before">
+          Select PC to add:
+          <select class="return-value" autofocus>
+            <option value=""></option>
+            {% for id, name in players %}
+              <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </p>
+
+      <button class="dialog-proceed" value="add">Add PC</button>
+      <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
     </form>
   </dialog>
 
   <dialog id="npc-adder">
+    <form method="dialog">
+      <p>
+        <label class="before">
+          Enter NPC name or leave blank for random.<br>
+          <input class="return-value" autofocus>
+        </label>
+      </p>
 
+      <button class="dialog-proceed" value="add">Add NPC</button>
+      <button class="dialog-cancel" value="cancel"><i>&times;</i></button>
+    </form>
   </dialog>
 
   <dialog id="pc-remover">

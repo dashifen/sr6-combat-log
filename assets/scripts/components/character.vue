@@ -142,7 +142,7 @@
       <input type="text" name="notes" v-model="character.notes">
     </td>
     <td v-if="isGM" :headers="character.name + ' notes'">
-      <a href="#" @click.prevent="remove(character.name)">&times;</a>
+      <a href="#" class="closer" @click.prevent="remove(character.name)">&times;</a>
     </td>
   </tr>
 </template>
