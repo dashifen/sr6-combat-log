@@ -1,5 +1,5 @@
 <script>
-  import {Dialogs} from '../dialogs.js';
+  import {Dialogs} from '@/dialogs';
   import character from './character.vue';
 
   export default {

@@ -102,6 +102,16 @@ export const state = createStore({
     },
     
     /**
+     * Sends character data to the server where it updates the database.
+     *
+     * @param state
+     * @param {{ character_id: number, field: string }} data
+     */
+    updateCharacter(state, data) {
+    
+    },
+    
+    /**
      * Rolls for a character's initiative.
      *
      * @param state

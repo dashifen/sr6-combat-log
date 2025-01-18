@@ -1,5 +1,5 @@
 <script>
-  import {Dialogs} from '../dialogs.js';
+  import {Dialogs} from '@/dialogs';
 
   export default {
     props: ['i'],
@@ -76,6 +76,16 @@
 
           this.$store.commit('score', this.i);
         }
+
+        // last, we want to update the server with this change.  to do that
+        // we can send information to our store which, in turn, passes it to
+        // the server.  all we need to do is tell the store who this was and
+        // what just changed.
+
+        this.$store.commit('updateCharacter', {
+          character_id: this.character.character_id,
+          field: event.target.name,
+        });
       },
 
       /**
@@ -113,11 +123,11 @@
     </td>
 
     <td :headers="character.name + ' major-action'" class="with-border">
-      <input type="checkbox" data-type="major" v-model="character.actions.major">
+      <input type="checkbox" name="major-action" data-type="major" v-model="character.actions.major">
     </td>
 
     <td :headers="character.name + ' minor-actions'">
-      <input type="checkbox" data-type="minor" data-i="0" v-model="character.actions.minor[0]">
+      <input type="checkbox" name="minor-action-0" data-type="minor" data-i="0" v-model="character.actions.minor[0]">
     </td>
 
     <td v-for="i in 5"
@@ -125,7 +135,7 @@
       :class="i === 5 ? 'with-border' : ''"
     >
       <input :class="i <= character.dice ? 'visible' : 'invisible'"
-        type="checkbox" data-type="minor" :data-i="i"
+        type="checkbox" data-type="minor" :name="'minor-action-' + i" :data-i="i"
         v-model="character.actions.minor[i]"
       >
     </td>
