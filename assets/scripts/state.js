@@ -96,7 +96,7 @@ export const state = createStore({
             return alert("Couldn't delete.");
           }
           
-          const filter = char => char.character_id !== data.character_id
+          const filter = char => char.character_id !== data.character_id;
           state.characters = state.characters.filter(filter);
         });
     },
@@ -105,10 +105,30 @@ export const state = createStore({
      * Sends character data to the server where it updates the database.
      *
      * @param state
-     * @param {{ character_id: number, field: string }} data
+     * @param {number} index
      */
-    updateCharacter(state, data) {
-    
+    updateCharacter(state, index) {
+      const character = state.characters[index];
+      
+      fetch('/session/character/update', {
+        method: 'POST',
+        body: objectToFormData({
+          character_id: character.character_id,
+          reaction: character.reaction,
+          intuition: character.intuition,
+          dice: character.dice,
+          edge: character.edge,
+          roll: character.roll,
+          score: character.score,
+          actions: convertActions(character),
+          damage: character.damage,
+          notes: character.notes,
+        })
+      })
+        .then(response => response.json())
+        .then(response => !response.success
+          ? console.log("Couldn't update.")
+          : '');
     },
     
     /**
@@ -242,4 +262,20 @@ function objectToFormData(object) {
   const formData = new FormData();
   Object.keys(object).forEach(key => formData.append(key, object[key]));
   return formData;
+}
+
+/**
+ * Converts our boolean actions into a string for the database.
+ *
+ * @param character
+ *
+ * @return {string}
+ */
+function convertActions(character) {
+  let actions = character.actions.major ? '1' : '0';
+  for (let i = 0; i < character.actions.minor.length; i++) {
+    actions += character.actions.minor[i] ? '1' : '0';
+  }
+  
+  return actions;
 }

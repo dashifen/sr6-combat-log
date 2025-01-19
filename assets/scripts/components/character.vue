@@ -77,15 +77,11 @@
           this.$store.commit('score', this.i);
         }
 
-        // last, we want to update the server with this change.  to do that
-        // we can send information to our store which, in turn, passes it to
-        // the server.  all we need to do is tell the store who this was and
-        // what just changed.
+        // last, we want to update the server with this change.  to do that we
+        // just send our store the index of this character and it, in turn,
+        // sends data about that character to the server.
 
-        this.$store.commit('updateCharacter', {
-          character_id: this.character.character_id,
-          field: event.target.name,
-        });
+        this.$store.commit('updateCharacter', this.i);
       },
 
       /**
