@@ -10,6 +10,7 @@ use function Latitude\QueryBuilder\on;
 use function Latitude\QueryBuilder\func;
 use function Latitude\QueryBuilder\field;
 use function Latitude\QueryBuilder\alias;
+use function Latitude\QueryBuilder\param;
 
 class AddAction extends AbstractAjaxAction
 {
@@ -46,10 +47,32 @@ class AddAction extends AbstractAjaxAction
    */
   private function addCharacter(int $characterId): int
   {
+    $sessionId = $this->request->getSessionVar('id');
+    
+    // first we get the information about this character from the characters
+    // table.  we use it to seed the information we insert into the session
+    // about it.  to make the insertion easier, we cram our session ID and
+    // reselect the character ID as a part of our query.
+    
+    $charQuery = $this->combatLog->queryFactory
+      ->select(alias(param($sessionId), 'session_id'), 'character_id',
+        'reaction', 'intuition', 'dice', 'edge')
+      ->from('characters')
+      ->where(field('character_id')->eq($characterId))
+      ->compile();
+    
+    $character = $this->combatLog->db
+      ->execute($charQuery->sql(), $charQuery->params())
+      ->quickResults();
+    
+    // now, because we crammed the session and character IDs into what we
+    // selected above, we can unpack the keys and values of our $character
+    // array as the columns and values for our insertion as follows:
+    
     $query = $this->combatLog->queryFactory
       ->insert('sessions_characters')
-      ->columns('session_id', 'character_id')
-      ->values($this->request->getSessionVar('id'), $characterId)
+      ->columns(...array_keys($character))
+      ->values(...array_values($character))
       ->compile();
     
     $this->combatLog->db->execute($query->sql(), $query->params());
