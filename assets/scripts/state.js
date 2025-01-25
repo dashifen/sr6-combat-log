@@ -138,7 +138,7 @@ export const state = createStore({
      * @param index
      */
     roll(state, index) {
-      state.characters[index].roll = roll(state.characters[index]);
+      state.characters[index].roll = rollInitiative(state.characters[index]);
     },
     
     /**
@@ -191,8 +191,14 @@ export const state = createStore({
      */
     endRound(state) {
       for (let i = 0; i < state.characters.length; i++) {
-        state.characters[i].major = false;
-        state.characters[i].minor = Array(6).fill(false);
+        
+        // here, for each character, we reset their minor actions to an array
+        // of false values and their major action to false as well.  this only
+        // updates the screen; to update the server, the session app method
+        // that gets us here, also calls the updateCharacter mutation above.
+        
+        state.characters[i].actions.minor = Array(6).fill(false);
+        state.characters[i].actions.major = false;
       }
     }
   }
@@ -206,7 +212,7 @@ export const state = createStore({
  * @param character
  * @returns {number}
  */
-function roll(character) {
+function rollInitiative(character) {
   let roll = Number(character.reaction) + Number(character.intuition);
   for (let i = 0; i < character.dice; i++) {
     roll += d(6);

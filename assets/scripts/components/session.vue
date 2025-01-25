@@ -6,10 +6,22 @@
     components: {character},
 
     computed: {
+      /**
+       * Returns the array of characters in our store in a more convenient
+       * way that involves less typing.
+       *
+       * @returns {any}
+       */
       characters() {
         return this.$store.state.characters;
       },
 
+      /**
+       * Using the global username variable defined in session.twig, returns
+       * true if the current user is the game master.
+       *
+       * @returns {boolean}
+       */
       isGM() {
 
         // the username variable is a global defined in session.twig.
@@ -19,26 +31,60 @@
     },
 
     methods: {
+      /**
+       * Utilizes the dialog#pc-adder modal to collect information from the
+       * current user and then adds a new player character to this combat
+       * session.
+       *
+       * @return {void}
+       */
       addPlayer() {
         const dialog = document.getElementById('pc-adder');
-        Dialogs.watch(dialog, (data) => { this.$store.commit('addCharacter', data) });
+        Dialogs.watch(dialog, (data) => {
+          this.$store.commit('addCharacter', data);
+        });
         dialog.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
         dialog.showModal();
       },
 
+      /**
+       * Utilizes the dialog#npc-adder modal to collect information from the
+       * current user and then adds a non-player character to the current
+       * combat session.
+       *
+       * @return {void}
+       */
       addNonPlayer() {
         const dialog = document.getElementById('npc-adder');
-        Dialogs.watch(dialog, (data) => { this.$store.commit('addCharacter', data) });
+        Dialogs.watch(dialog, (data) => {
+          this.$store.commit('addCharacter', data);
+        });
         dialog.querySelector('input').value = '';
         dialog.showModal();
       },
 
+      /**
+       * Sorts the on-screen information based on the current initiative
+       * scores.
+       *
+       * @return {void}
+       */
       sort() {
         this.$store.commit('sort');
       },
 
+      /**
+       * Resets all character actions in preparation for the next round of
+       * combat and then also uses the updateCharacter mutation to make sure
+       * the server knows about this local change.
+       *
+       * @return {void}
+       */
       endRound() {
         this.$store.commit('endRound');
+        for (let i = 0; i < this.characters.length; i++) {
+          this.$store.commit('updateCharacter', i);
+        }
       }
     }
   };
