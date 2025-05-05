@@ -12,7 +12,7 @@
     "vue": "^3.5",
     "vue-loader": "^17.4",
     "vuex": "^4.1",
-    "webpack": "^5.97",
+    "webpack": "^5.99",
     "webpack-cli": "^6.0"
   },
   "scripts": {

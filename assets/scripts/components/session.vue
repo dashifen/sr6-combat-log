@@ -120,6 +120,12 @@
       </tbody>
     </table>
 
+    <div class="references">
+      <a href="/session/references/actions" target="_new"><button type="button">Actions</button></a>
+      <a href="/session/references/statuses" target="_new"><button type="button">Statuses</button></a>
+      <a href="/session/references/edge" target="_new"><button type="button">Edge</button></a>
+    </div>
+
     <div v-if="isGM" class="session-controls">
       <button type="button" @click="addPlayer">Add PC</button>
       <button type="button" @click="addNonPlayer">Add NPC</button>

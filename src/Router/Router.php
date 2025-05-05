@@ -36,7 +36,7 @@ class Router extends DashifenRouter
   }
   
   /**
-   * Returns the name space for an action.
+   * Returns the namespace for an action.
    *
    * @return string
    */
@@ -44,9 +44,10 @@ class Router extends DashifenRouter
   {
     $request = $this->request->getServerVar('REQUEST_URI');
     return 'Dashifen\\SR6\\CombatLog\\Actions\\' . match (true) {
-        str_contains($request, 'character') => 'Private\\Character\\',
-        str_contains($request, 'session')   => 'Private\\',
-        default                             => 'Public\\',
+        str_contains($request, 'character')  => 'Private\\Character\\',
+        str_contains($request, 'references') => 'Private\\References\\',
+        str_contains($request, 'session')    => 'Private\\',
+        default                              => 'Public\\',
       };
   }
 }

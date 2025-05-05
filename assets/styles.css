@@ -34,6 +34,10 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100%;
+  
+  header h1 {
+    margin-bottom: 2rem;
+  }
 }
 
 fieldset {
@@ -109,10 +113,41 @@ button {
   }
 }
 
+a + a {
+  margin-inline-start: 1rem;
+}
+
 table {
   border: 1px solid black;
   border-collapse: collapse;
   width: 100%;
+  
+  &.reference {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    td, th {
+      text-align: left;
+      vertical-align: top;
+    }
+    
+    th[colspan] {
+      border-inline-end: 1px solid black;
+    }
+    
+    &.reference-actions {
+      th:not([colspan]) {
+        width: 25%;
+      }
+      
+      #minor-anytime,
+      td[headers~=minor-anytime] {
+        border-inline-end: 1px solid black;
+      }
+    }
+  }
 }
 
 td, th {
@@ -217,6 +252,11 @@ a.closer {
 
 .session {
   position: relative;
+  
+  .references {
+    position: absolute;
+    top: -2rem;
+  }
   
   .session-controls {
     position: absolute;

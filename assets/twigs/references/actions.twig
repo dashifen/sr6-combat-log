@@ -1,0 +1,35 @@
+{% extends 'layouts/default.twig' %}
+{% set pageTitle = 'Minor and Major Actions' %}
+{% block content %}
+
+  <table class="reference reference-actions">
+    <thead>
+      <tr>
+        <th scope="col" id="minor" colspan="2">Minor Actions</th>
+        <th scope="col" id="major" colspan="2">Major Actions</th>
+      </tr>
+      <tr>
+        <th scope="col" id="minor-initiative" headers="minor">Initiative</th>
+        <th scope="col" id="minor-anytime" headers="minor">Anytime</th>
+        <th scope="col" id="major-initiative" headers="major">Initiative</th>
+        <th scope="col" id="major-anytime" headers="major">Anytime</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for actionType in ['minor','major'] %}
+          {% for actionSubtype in ['initiative','anytime'] %}
+            <td headers="{{ actionType }} {{ actionType }}-{{ actionSubtype }}">
+              <ul>
+                {% for action in actions[actionType][actionSubtype] %}
+                  <li>{{ action.action }} (p. {{ action.page }}, {{ action.book }})</li>
+                {% endfor %}
+              </ul>
+            </td>
+          {% endfor %}
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}

@@ -1,0 +1,226 @@
+[
+  {
+    "status": "Blinded 1",
+    "effect": "-3 to all tests involving visibility.",
+    "removal": "Remove blinding agent or effect.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Blinded 2",
+    "effect": "-6 to all tests involving visibility.",
+    "removal": "Remove blinding agent or effect.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Blinded 3",
+    "effect": "Automatically fail all tests involving visibility.",
+    "removal": "Remove blinding agent or effect.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Burning X",
+    "effect": "Resists X physical damage per round.",
+    "removal": "Agility + Reaction (2); get wet or cold.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Chilled",
+    "effect": "-4 to Initiative Score and -1 to dice polls (except Damage Resistance).",
+    "removal": "Warm up, including gaining Burning status.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Confused X",
+    "effect": "-X dice pool penalty for actions your take.",
+    "removal": "Remove confusing agent or effect.",
+    "book": "SR6",
+    "page": 51
+  },
+  {
+    "status": "Corrosive X",
+    "effect": "Resist X Physical damage each round.",
+    "removal": "Neutralize corrosive agent or rinse it off.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Cover 1",
+    "effect": "+1 to DR and Defense Tests.  Attacking requires an additional Minor Action and you cannot gain Edge while attacking from Cover.",
+    "removal": "Moving away from cover removes this status.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Cover 2",
+    "effect": "+2 to DR and Defense Tests.  Attacking requires an additional Minor Action and you cannot gain Edge while attacking from Cover.",
+    "removal": "Moving away from cover removes this status.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Cover 3",
+    "effect": "+3 to DR and Defense Tests.  Attacking requires an additional Minor Action and you cannot gain Edge while attacking from Cover.",
+    "removal": "Moving away from cover removes this status.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Cover 4",
+    "effect": "+4 to DR and Defense Tests.  Attacking requires an additional Minor Action, a -2 to your dice pool, and you cannot gain Edge while attacking from Cover.",
+    "removal": "Moving away from cover removes this status.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Dazed",
+    "effect": "-4 to Initiative Score; cannot gain or spend Edge (though can burn it).",
+    "removal": "Time, more or less.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Deafened 1",
+    "effect": "-3 to tests involving hearing.",
+    "removal": "Removing the deafening agent",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Deafened 2",
+    "effect": "-6 to tests involving hearing.",
+    "removal": "Removing the deafening agent",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Deafened 3",
+    "effect": "Automatically fail tests involving hearing.",
+    "removal": "Removing the deafening agent",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Fatigued 1–3",
+    "effect": "-2 per level to dice pools except Damage Resistance; movement is 5 for walking and 10 for sprinting.",
+    "removal": "Sleep.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Frightened",
+    "effect": "-4 to dice pools on tests involving the source of the effect.",
+    "removal": "Remove the source of the effect.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Hazed",
+    "effect": "Status prevents astral projects and manifestation; does not prevent astral perception.",
+    "removal": "Remove the hazing agent.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Burning X",
+    "effect": "Resists X physical damage per round.",
+    "removal": "Agility + Reaction (2); get wet or cold.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Hobbled",
+    "effect": "Movement (on foot) is halved.",
+    "removal": "Remove the hobbling agent.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Immobilized",
+    "effect": "Status prevents movement, -3 to AR, -3 dice pool penalty on all attacks, and cannot use Reaction on their Defense tests.",
+    "removal": "Agility + Reaction (2); get wet or cold.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Invisible X",
+    "effect": "Living things must pass a Perception (X) test to notice this character.",
+    "removal": "Remove the invisibility-causing agent.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Nauseated",
+    "effect": "Body + Willpower (2) test at the start of a round; succeed and lose a Minor Action, but fail and you cannot act.",
+    "removal": "Remove the nauseating agent.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Panicked",
+    "effect": "Cannot act except to avoid the panic-inducing agent.",
+    "removal": "Remove the panic-inducing agent.",
+    "book": "SR6",
+    "page": 52
+  },
+  {
+    "status": "Petrified",
+    "effect": "Character cannot act but gets +10 to Armor Rating and cancel any other damaging statuses.",
+    "removal": "Remove the petrifying agent.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Poisoned X",
+    "effect": "At the end of each combat round, resist X damage (stun or physical specified) rolling only Body and decrease X by one",
+    "removal": "Reduce X to zero or find an antidote (magical or otherwise).",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Prone",
+    "effect": "Movement rate is reduced to 2 meters and cannot sprint; +2 to Defense Tests against attacks from >=Medium range but -2 for <=Near ranges.  -4 to melee or bow attacks.  Increase AR for firearms or projectile weapons, except bows, by 2.",
+    "removal": "Perform the Stand Up Minor Action.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Silent X",
+    "effect": "Living beings must pass a Perception (X) test to hear.",
+    "removal": "Remove the silencing agent.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Silent (Improved) X",
+    "effect": "As Silent, but also applies to tech.",
+    "removal": "Remove the silencing agent.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Stilled",
+    "effect": "Character is stuck in place; -10 to DR (minimum zero), no actions outside Perception and mental communication, no Defense tests.  Being stilled halts any ongoing damage, though new damage may be inflicted.",
+    "removal": "Remove the stilling agent.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Wet",
+    "effect": "-6 to Damage Resistance for cold and electrical attacks.",
+    "removal": "Cancels Burning status; may affect Corrosive status.",
+    "book": "SR6",
+    "page": 53
+  },
+  {
+    "status": "Zapped",
+    "effect": "-2 to Initiative Score, no sprinting, and -1 to all actions.",
+    "removal": "Time, basically.",
+    "book": "SR6",
+    "page": 53
+  }
+]
