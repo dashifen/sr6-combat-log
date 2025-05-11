@@ -27,10 +27,10 @@ class ActionsAction extends AbstractReferenceAction
    */
   protected function extractData(string $reference): array
   {
-    $minor = [];
-    $major = [];
-    $data = parent::extractData($reference)['data'];
+    $minor = [];  // declared here so we can use variable variables in the
+    $major = [];  // loop below to fill these arrays with actions.
     
+    $data = parent::extractData($reference);
     foreach (['minor','major'] as $type) {
       foreach($data[$type] as $action) {
         $$type[strtolower($action['type'])][] = $action;

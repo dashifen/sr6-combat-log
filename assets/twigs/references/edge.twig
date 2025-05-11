@@ -1,0 +1,33 @@
+{% extends 'layouts/default.twig' %}
+{% set pageTitle = 'Edge Boosts and Actions' %}
+{% block content %}
+
+  <table class="reference reference-edge">
+    <thead>
+      <tr>
+        <th scope="col" id="cost">Cost</th>
+        <th scope="col" id="boosts">Boosts</th>
+        <th scope="col" id="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cost in [1,2,3,4,5,'X'] %}
+        <tr>
+          <th scope="row" id="cost-{{ cost }}">{{ cost }}</th>
+          {% for type in ['boosts','actions'] %}
+            <td headers="cost-{{ cost }} {{ type }}">
+              {% if edge[cost][type] is defined %}
+                <ul>
+                  {% for datum in edge[cost][type] %}
+                    <li>{{ datum.name }} (p. {{ datum.page }}, {{datum.book }})</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

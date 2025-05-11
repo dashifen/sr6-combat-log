@@ -13,9 +13,13 @@ class StatusesAction extends AbstractReferenceAction
    */
   public function execute(): void
   {
+    $data = $this->extractData('statuses');
     $this->combatLog->render('references/statuses.twig', [
-      'statuses'  => $this->extractData('statuses'),
       'reference' => 'statuses',
+      'statuses'  => [
+        'headers' => array_keys($data[0] ?? []),
+        'data'    => $data,
+      ],
     ]);
   }
   

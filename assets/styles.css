@@ -156,7 +156,18 @@ table {
       
       th#effect,
       th#removal {
-        width: calc(75%/2);
+        width: 37.5%;
+      }
+    }
+    
+    &.reference-edge {
+      th#cost {
+        width: 5%;
+      }
+      
+      th#boosts,
+      th#actions {
+        width: 47.5%;
       }
     }
   }
