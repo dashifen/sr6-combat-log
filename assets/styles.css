@@ -128,6 +128,7 @@ table {
       margin: 0;
       padding: 0;
     }
+    
     td, th {
       text-align: left;
       vertical-align: top;
@@ -145,6 +146,17 @@ table {
       #minor-anytime,
       td[headers~=minor-anytime] {
         border-inline-end: 1px solid black;
+      }
+    }
+    
+    &.reference-statuses {
+      th#status {
+        width: 15%;
+      }
+      
+      th#effect,
+      th#removal {
+        width: calc(75%/2);
       }
     }
   }
@@ -167,7 +179,7 @@ tbody tr:nth-child(even) > * {
   background-color: whitesmoke;
 }
 
-tbody tr:hover > * {
+tbody:not(.no-highlight) tr:hover > * {
   background-color: floralwhite !important;
 }
 
@@ -187,6 +199,11 @@ th#damage,
 th#major-action,
 td.initiative {
   width: 3.5rem;
+}
+
+th#book,
+th#page {
+  width: 5%;
 }
 
 th#notes {

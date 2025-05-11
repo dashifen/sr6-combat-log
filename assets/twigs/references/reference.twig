@@ -1,0 +1,24 @@
+{% extends 'layouts/default.twig' %}
+{% set pageTitle = 'Statuses' %}
+{% block content %}
+
+  <table class="reference reference-{{ reference }}">
+    <thead>
+      <tr>
+        {% for header in statuses.headers %}
+          <th scope="col" id="{{ header }}">{{ header | capitalize }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for status in statuses.data %}
+        <tr>
+          {% for header, datum in status %}
+            <td headers="{{ header }}">{{ datum }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

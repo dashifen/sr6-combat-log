@@ -2,7 +2,6 @@
 
 namespace Dashifen\SR6\CombatLog\Actions\Private\References;
 
-use JetBrains\PhpStorm\ArrayShape;
 use Dashifen\SR6\CombatLog\Actions\AbstractReferenceAction;
 
 class ActionsAction extends AbstractReferenceAction

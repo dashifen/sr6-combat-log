@@ -16,7 +16,7 @@ abstract class AbstractReferenceAction extends AbstractPrivateAction
    */
   protected function extractData(string $reference): array
   {
-    $data = $this->combatLog->dataFolder . '/actions.json';
+    $data = $this->combatLog->dataFolder . "/$reference.json";
     $data = json_decode(file_get_contents($data), associative: true);
     return ['headers' => array_keys($data[0] ?? []), 'data' => $data];
   }
