@@ -43,7 +43,7 @@ class LoginAction extends AbstractAction
   {
     return !empty($tag)
       ? $this->sessionReconnect($tag)
-      : $this->sessionStart($tag);
+      : $this->sessionStart();
   }
   
   /**
@@ -72,18 +72,32 @@ class LoginAction extends AbstractAction
   /**
    * Starts a new combat session.
    *
-   * @param string $tag
-   *
    * @return int
    * @throws DatabaseException
    */
-  private function sessionStart(string $tag): int
+  private function sessionStart(): int
   {
     $query = $this->combatLog->queryFactory
-      ->insert('sessions', ['tag' => $tag])
+      ->insert('sessions', ['tag' => uniqid()])
       ->compile();
     
     $this->combatLog->db->execute($query->sql(), $query->params());
-    return $this->combatLog->db->lastInsertID();
+    $sessionId = $this->combatLog->db->lastInsertID();
+    
+    // now that the session has been started, we're going to add our PCs to it.
+    // for now, we assume all PCs will be a part of the session; the GM can
+    // remove them from the screen later if they're not.  note:  our query
+    // factory does not have the means to produce an INSERT INTO SELECT FROM
+    // query, so we'll have to build this one by hand.
+    
+    $insert = <<< STATEMENT
+      INSERT INTO sessions_characters (character_id, session_id, reaction, intuition, dice, edge)
+      SELECT character_id, "$sessionId", reaction, intuition, dice, edge
+      FROM characters
+      WHERE type=?
+    STATEMENT;
+    
+    $this->combatLog->db->execute($insert, ['pc']);
+    return $sessionId;
   }
 }
