@@ -85,6 +85,23 @@
         for (let i = 0; i < this.characters.length; i++) {
           this.$store.commit('updateCharacter', i);
         }
+      },
+
+      /**
+       * Confirms and ends a session.
+       *
+       * @return {void}
+       */
+      endSession() {
+        const dialog = document.getElementById('end-session');
+
+        Dialogs.watch(dialog, (data) => {
+          if(data === 'Y') {
+            this.$store.commit('endSession');
+          }
+        });
+
+        dialog.showModal();
       }
     }
   };
@@ -131,6 +148,7 @@
       <button type="button" @click="addNonPlayer">Add NPC</button>
       <button type="button" @click="sort">Sort</button>
       <button type="button" @click="endRound">End Round</button>
+      <button type="button" @click="endSession">End Session</button>
     </div>
   </div>
 </template>

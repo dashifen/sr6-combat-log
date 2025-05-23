@@ -200,6 +200,19 @@ export const state = createStore({
         state.characters[i].actions.minor = Array(6).fill(false);
         state.characters[i].actions.major = false;
       }
+    },
+    
+    /**
+     * Ends a session.
+     */
+    endSession() {
+      fetch('/session/end')
+        .then(response => response.json())
+        .then(response => {
+          if (response.success) {
+            window.location.href = '/';
+          }
+        });
     }
   }
 });
@@ -222,7 +235,7 @@ function rollInitiative(character) {
 }
 
 /**
- * Returns a random number between 1 and sides.
+ * Returns a random number between 1 and sides, e.g. d(6) rolls a d6.
  *
  * @param {number} sides
  * @returns {number}

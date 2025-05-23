@@ -5,6 +5,8 @@ namespace Dashifen\SR6\CombatLog\Actions\Public;
 use Dashifen\SR6\CombatLog\Actions\AbstractAction;
 use Dashifen\SR6\CombatLog\Database\DatabaseException;
 
+use function Latitude\QueryBuilder\field;
+
 class IndexAction extends AbstractAction
 {
   /**
@@ -32,6 +34,7 @@ class IndexAction extends AbstractAction
     $query = $this->combatLog->queryFactory
       ->select('tag')
       ->from('sessions')
+      ->where(field('ended')->isNull())
       ->orderBy('started', 'desc')
       ->limit(1)
       ->compile();

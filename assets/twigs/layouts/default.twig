@@ -6,7 +6,8 @@
   <title>SR6 Combat Log</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css?ver={{ cssVersion }}">
 
   {% block head %}
@@ -25,14 +26,17 @@
     </main>
     <footer>
       {% if session.tag is defined and session.tag | length %}
-        <p>
-          Session: <a href="/session">{{ session.tag }}</a>
-          | <a href="/session/logout">Log out</a>
+
+        <ul>
+          <li>Session: <a href="/session">{{ session.tag }}</a></li>
 
           {% if username == 'gm' %}
-            | <a href="/session/manage">Manage</a>
+            <li><a href="/session/manage">Manage</a></li>
           {% endif %}
-        </p>
+
+          <li><a href="/session/logout">Log out</a></li>
+        </ul>
+
       {% endif %}
     </footer>
   </div>

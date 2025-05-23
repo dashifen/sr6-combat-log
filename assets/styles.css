@@ -294,5 +294,13 @@ a.closer {
 }
 
 footer {
-  font-size: .6rem;
+  font-size: .8rem;
+  
+  ul {
+    display: flex;
+    column-gap: 1rem;
+    list-style-type: none;
+    margin:  0;
+    padding: 0;
+  }
 }
