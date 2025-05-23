@@ -19,6 +19,7 @@ class IndexAction extends AbstractAction
   {
     $this->combatLog->render('index.twig', [
       'characters' => $this->getPlayers(),
+      'gameMaster' => isset($this->request->getGet()['gm']),
       'tag'        => $this->getRecentSessionTag(),
     ]);
   }

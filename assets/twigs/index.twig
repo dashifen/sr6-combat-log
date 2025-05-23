@@ -16,8 +16,10 @@
           <label for="character">Character</label>
           <select id="character" name="character" required>
             <option value=""></option>
-            <option value="gm">GM</option>
-            <hr>
+            {% if gameMaster %}
+              <option value="gm">GM</option>
+              <hr>
+            {% endif %}
             {% for id, name in characters %}
               <option value="{{ id }}">{{ name }}</option>
             {% endfor %}
